@@ -1,0 +1,23 @@
+FROM node:22-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+FROM base AS build
+WORKDIR /app
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.base.json ./
+COPY packages/database/package.json packages/database/
+COPY apps/worker/package.json apps/worker/
+RUN pnpm install --frozen-lockfile --filter @workflow-pro/database... --filter @workflow-pro/worker...
+
+COPY packages/database packages/database
+COPY apps/worker apps/worker
+RUN pnpm --filter @workflow-pro/database build && pnpm --filter @workflow-pro/worker build
+
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/packages/database ./packages/database
+COPY --from=build /app/apps/worker ./apps/worker
+CMD ["node", "apps/worker/dist/index.js"]
