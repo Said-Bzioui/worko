@@ -1,4 +1,4 @@
-import { createWorkoAuthClient } from '@workflow-pro/auth-sdk';
+import { createWorkoAuthClient } from '@worko/auth-sdk';
 
 export const authClient = createWorkoAuthClient({
   baseURL: import.meta.env.DEV

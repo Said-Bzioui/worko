@@ -8,11 +8,11 @@ WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.base.json ./
 COPY packages/database/package.json packages/database/
 COPY apps/worker/package.json apps/worker/
-RUN pnpm install --frozen-lockfile --filter @workflow-pro/database... --filter @workflow-pro/worker...
+RUN pnpm install --frozen-lockfile --filter @worko/database... --filter @worko/worker...
 
 COPY packages/database packages/database
 COPY apps/worker apps/worker
-RUN pnpm --filter @workflow-pro/database build && pnpm --filter @workflow-pro/worker build
+RUN pnpm --filter @worko/database build && pnpm --filter @worko/worker build
 
 FROM base AS runner
 WORKDIR /app

@@ -1,5 +1,5 @@
 {
-  "name": "@workflow-pro/worker",
+  "name": "@worko/worker",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
-    "@workflow-pro/database": "workspace:*",
+    "@worko/database": "workspace:*",
     "bullmq": "^6.7.10",
     "dotenv": "^18.0.10"
   },

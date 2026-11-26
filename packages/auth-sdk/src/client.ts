@@ -9,7 +9,7 @@ import type {
 export function createWorkoAuthClient(options: AuthClientOptions = {}) {
   const client = createAuthClient({
     baseURL: options.baseURL,
-    basePath: options.basePath ?? '/api/auth',
+    basePath: options.basePath ?? '/api/v1/auth',
     fetchOptions: {
       credentials: 'include',
     },

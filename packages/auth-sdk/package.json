@@ -1,5 +1,5 @@
 {
-  "name": "@workflow-pro/auth-sdk",
+  "name": "@worko/auth-sdk",
   "version": "0.0.1",
   "private": true,
   "type": "module",

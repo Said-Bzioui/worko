@@ -1,11 +1,10 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { PrismaClient, PrismaPg, Pool } from '@workflow-pro/database';
+import { PrismaClient, PrismaPg, Pool } from '@worko/database';
 
 @Injectable()
 export class PrismaService
   extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
+  implements OnModuleInit, OnModuleDestroy {
   constructor() {
     const pool = new Pool({
       connectionString: process.env.DATABASE_URL,

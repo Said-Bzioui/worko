@@ -54,10 +54,10 @@ worko/
 ├── apps/
 │   ├── backend_api/       # NestJS REST API ("worko")
 │   ├── frontend_ui/       # React + Vite frontend ("frontend")
-│   └── worker/            # BullMQ background job processor ("@workflow-pro/worker")
+│   └── worker/            # BullMQ background job processor ("@worko/worker")
 ├── packages/
-│   ├── database/          # Centralized Prisma 7 infrastructure ("@workflow-pro/database")
-│   └── auth-sdk/          # Better Auth client SDK ("@workflow-pro/auth-sdk")
+│   ├── database/          # Centralized Prisma 7 infrastructure ("@worko/database")
+│   └── auth-sdk/          # Better Auth client SDK ("@worko/auth-sdk")
 ├── infrastructure/
 │   └── docker/
 │       ├── docker-compose.yml
@@ -87,7 +87,7 @@ A REST API built with NestJS 12 and TypeScript 6.
 
 - NestJS modular architecture with URI versioning (`/api/v1`).
 - Better Auth authentication mounted at `/api/auth/*`.
-- PostgreSQL integration through `@workflow-pro/database` (`PrismaService` + `@prisma/adapter-pg`).
+- PostgreSQL integration through `@worko/database` (`PrismaService` + `@prisma/adapter-pg`).
 - Background job enqueueing via `@nestjs/bullmq` (`QueueService`).
 - Arcjet security and rate limiting.
 - NestJS Observe instrumentation and Swagger / OpenAPI documentation.
@@ -105,22 +105,22 @@ A client application built with React 19, Vite 8, and TypeScript.
 - Tailwind CSS v4 and `shadcn/ui` components with dark/light theme support.
 - Client-side routing with `react-router-dom` v7.
 - Typed API client (`src/lib/api-client.ts`) and Vite `/api` dev proxy.
-- Shared authentication via `@workflow-pro/auth-sdk` (`src/lib/auth-client.ts`).
+- Shared authentication via `@worko/auth-sdk` (`src/lib/auth-client.ts`).
 
-### 3. Background Worker (`apps/worker` — `@workflow-pro/worker`)
+### 3. Background Worker (`apps/worker` — `@worko/worker`)
 
 An independent Node.js process responsible for asynchronous background jobs.
 
 - BullMQ `Worker` listening on the `worko-jobs` queue via Redis.
-- Shared PostgreSQL access through `@workflow-pro/database` (`createPrismaClient()`).
+- Shared PostgreSQL access through `@worko/database` (`createPrismaClient()`).
 - Graceful `SIGINT`/`SIGTERM` shutdown.
 
 ## Shared Packages
 
 | Package | Path | Responsibility |
 | --- | --- | --- |
-| `@workflow-pro/database` | `packages/database` | Centralized Prisma 7 schema, migrations, generated client, and `pg` adapter |
-| `@workflow-pro/auth-sdk` | `packages/auth-sdk` | Type-safe Better Auth client (`emailAndPassword`, `github`/`google` social, sessions) |
+| `@worko/database` | `packages/database` | Centralized Prisma 7 schema, migrations, generated client, and `pg` adapter |
+| `@worko/auth-sdk` | `packages/auth-sdk` | Type-safe Better Auth client (`emailAndPassword`, `github`/`google` social, sessions) |
 
 > Planned future packages (`api-sdk`, `shared-types`, `shared-utils`, `config-*`) will be added under `packages/` as needed.
 
@@ -176,14 +176,14 @@ pnpm docker:up
 ### 5. Build shared packages & generate Prisma Client
 
 ```bash
-pnpm --filter @workflow-pro/database build
-pnpm --filter @workflow-pro/auth-sdk build
+pnpm --filter @worko/database build
+pnpm --filter @worko/auth-sdk build
 ```
 
 ### 6. Run database migrations
 
 ```bash
-pnpm --filter @workflow-pro/database prisma:migrate
+pnpm --filter @worko/database prisma:migrate
 ```
 
 ### 7. Start development
@@ -208,15 +208,15 @@ pnpm dev:api    # Starts Backend API in watch mode
 | `pnpm test` | Run tests across workspace packages |
 | `pnpm clean` | Clean build outputs |
 
-### Database (`@workflow-pro/database`)
+### Database (`@worko/database`)
 
 | Command | Description |
 | --- | --- |
-| `pnpm --filter @workflow-pro/database prisma:generate` | Generate Prisma Client |
-| `pnpm --filter @workflow-pro/database prisma:migrate` | Create and apply development migrations |
-| `pnpm --filter @workflow-pro/database prisma:deploy` | Apply production migrations |
-| `pnpm --filter @workflow-pro/database prisma:push` | Push schema changes |
-| `pnpm --filter @workflow-pro/database prisma:studio` | Open Prisma Studio |
+| `pnpm --filter @worko/database prisma:generate` | Generate Prisma Client |
+| `pnpm --filter @worko/database prisma:migrate` | Create and apply development migrations |
+| `pnpm --filter @worko/database prisma:deploy` | Apply production migrations |
+| `pnpm --filter @worko/database prisma:push` | Push schema changes |
+| `pnpm --filter @worko/database prisma:studio` | Open Prisma Studio |
 
 ### Docker
 
@@ -230,7 +230,7 @@ pnpm dev:api    # Starts Backend API in watch mode
 ```bash
 pnpm --filter worko start:dev              # Backend API
 pnpm --filter frontend dev                 # Frontend UI
-pnpm --filter @workflow-pro/worker dev     # Background Worker
+pnpm --filter @worko/worker dev     # Background Worker
 ```
 
 ## API Documentation
@@ -247,10 +247,10 @@ Once `apps/backend_api` is running:
 GitHub Actions (`.github/workflows/ci.yml`) runs on pushes and pull requests to `main`:
 
 1. `pnpm install --frozen-lockfile`
-2. Build shared packages (`@workflow-pro/database`, `@workflow-pro/auth-sdk`)
-3. Typecheck (`@workflow-pro/worker`, `frontend`)
+2. Build shared packages (`@worko/database`, `@worko/auth-sdk`)
+3. Typecheck (`@worko/worker`, `frontend`)
 4. Lint (`worko`, `frontend`)
-5. Build apps (`worko`, `@workflow-pro/worker`, `frontend`)
+5. Build apps (`worko`, `@worko/worker`, `frontend`)
 6. Test (`worko`)
 
 ## Project Status

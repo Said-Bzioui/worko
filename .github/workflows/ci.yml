@@ -30,12 +30,12 @@ jobs:
 
       - name: Build shared packages
         run: |
-          pnpm --filter @workflow-pro/database build
-          pnpm --filter @workflow-pro/auth-sdk build
+          pnpm --filter @worko/database build
+          pnpm --filter @worko/auth-sdk build
 
       - name: Typecheck
         run: |
-          pnpm --filter @workflow-pro/worker typecheck
+          pnpm --filter @worko/worker typecheck
           pnpm --filter frontend typecheck
 
       - name: Lint
@@ -46,7 +46,7 @@ jobs:
       - name: Build apps
         run: |
           pnpm --filter worko build
-          pnpm --filter @workflow-pro/worker build
+          pnpm --filter @worko/worker build
           pnpm --filter frontend build
 
       - name: Test

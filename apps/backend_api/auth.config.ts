@@ -8,7 +8,7 @@
 import 'dotenv/config';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient, PrismaPg, Pool } from '@workflow-pro/database';
+import { PrismaClient, PrismaPg, Pool } from '@worko/database';
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);

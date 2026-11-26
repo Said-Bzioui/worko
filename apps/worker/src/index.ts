@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { createPrismaClient } from '@workflow-pro/database';
+import { createPrismaClient } from '@worko/database';
 import type { Worker } from 'bullmq';
 import { createWorkoWorker, WORKO_QUEUE_NAME } from './queues/worko.worker.js';
 
@@ -8,7 +8,7 @@ let worker: Worker | undefined;
 
 async function bootstrap() {
   await prisma.$connect();
-  console.log('[worker] Connected to PostgreSQL via @workflow-pro/database');
+  console.log('[worker] Connected to PostgreSQL via @worko/database');
 
   worker = createWorkoWorker();
   console.log(`[worker] BullMQ worker listening on queue "${WORKO_QUEUE_NAME}"`);

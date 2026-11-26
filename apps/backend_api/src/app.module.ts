@@ -1,5 +1,5 @@
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { createObserveModule } from '@nestjs/observe';
@@ -8,6 +8,8 @@ import { AppService } from './app.service.js';
 import { BetterAuthModule } from './lib/better-auth/better-auth.module.js';
 import { PrismaModule } from './lib/prisma/prisma.module.js';
 import { QueueModule } from './lib/queue/queue.module.js';
+import { UsersModule } from './modules/users/users.module.js';
+import { ApiKeyMiddleware } from './middleware/api-key.middleware.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -19,6 +21,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PrismaModule,
     QueueModule,
     BetterAuthModule,
+    UsersModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,
     // then run `npx @nestjs/observe link` to write your key pair into .env.
@@ -54,4 +57,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ApiKeyMiddleware).forRoutes('*');
+  }
+}

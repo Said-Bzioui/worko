@@ -12,6 +12,12 @@ export class BetterAuthService {
     this.auth = betterAuth({
       secret: process.env.BETTER_AUTH_SECRET,
       baseURL: process.env.BETTER_AUTH_URL,
+      basePath: '/api/v1/auth',
+      trustedOrigins: [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        process.env.BETTER_AUTH_URL ?? 'http://localhost:3000',
+      ],
       database: prismaAdapter(this.prisma, {
         provider: 'postgresql',
       }),

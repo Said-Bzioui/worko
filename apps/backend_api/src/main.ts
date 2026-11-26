@@ -1,12 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { toNodeHandler } from 'better-auth/node';
 import { AppModule, ObserveInstrument } from './app.module.js';
 import { BetterAuthService } from './lib/better-auth/better-auth.service.js';
+import { TransformInterceptor } from './utils/transform.interceptor.js';
+
+
 
 async function bootstrap() {
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     instrument: ObserveInstrument,
     // Disable body parser so Better Auth can read the raw request body before
@@ -17,7 +21,7 @@ async function bootstrap() {
   // ── 1. Better Auth handler (must be before body parser) ────────────────────
   const betterAuthService = app.get(BetterAuthService);
   const expressApp = app.getHttpAdapter().getInstance();
-  expressApp.all('/api/auth/{*any}', toNodeHandler(betterAuthService.auth));
+  expressApp.all('/api/v1/auth/{*any}', toNodeHandler(betterAuthService.auth));
 
   // ── 2. Body parsing for all other routes ───────────────────────────────────
   app.useBodyParser('json');
@@ -27,7 +31,7 @@ async function bootstrap() {
   // Routes become: /api/v1/<controller-path>
   // Better Auth stays at /api/auth/* (exempt from prefix)
   app.setGlobalPrefix('api', {
-    exclude: ['/api/auth/{*any}'],
+    exclude: ['/api/v1/auth/{*any}'],
   });
 
   app.enableVersioning({
@@ -47,6 +51,11 @@ async function bootstrap() {
     )
     .addServer('http://localhost:3000', 'Local')
     .build();
+  // ── 5. Global transform interceptor ────────────────────────────────────────────
+  app.useGlobalInterceptors(new TransformInterceptor<any>());
+  // ── 6. Global validation pipes ────────────────────────────────────────────────────────────
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document, {
