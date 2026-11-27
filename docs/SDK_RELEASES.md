@@ -7,10 +7,10 @@
 
 ## SDKs
 
-| Canonical workspace package | Published GitHub Packages name | Current version |
+| Package | Current version | Registry |
 |---|---|---|
-| `@worko/database` | `@said-bzioui/database` | 0.1.0 |
-| `@worko/auth-sdk` | `@said-bzioui/auth-sdk` | 0.1.0 |
+| `@said-bzioui/database` | 0.2.0 | GitHub Packages |
+| `@said-bzioui/auth-sdk` | 0.1.0 | GitHub Packages |
 
 ---
 
@@ -51,7 +51,7 @@ pnpm changeset
 ```
 
 The CLI will:
-- Ask which packages changed (`@worko/database`, `@worko/auth-sdk`, or both)
+- Ask which packages changed (`@said-bzioui/database`, `@said-bzioui/auth-sdk`, or both)
 - Ask for the bump type (`major` / `minor` / `patch`)
 - Ask for a summary of the change
 
@@ -119,7 +119,7 @@ env:
 
 ### Installing packages locally (consumers)
 
-The monorepo keeps the canonical workspace names `@worko/database` and `@worko/auth-sdk`. GitHub Packages publishes them under `@said-bzioui/database` and `@said-bzioui/auth-sdk`, because the npm scope must match the GitHub user or organization that owns the package. `publishConfig.name` applies this mapping only when publishing; source imports and Changesets continue using the canonical names. Consumers install the published names and authenticate with GitHub Packages.
+The workspace package names, source imports, Changesets entries, and published package names are all `@said-bzioui/database` and `@said-bzioui/auth-sdk`. Their scope matches the GitHub owner, so no publish-time name mapping is used. Consumers install these same names and authenticate with GitHub Packages.
 
 **Step 1 — Install the published name and add to your project `.npmrc`:**
 
@@ -149,12 +149,10 @@ Or add it to your `.bashrc` / `.zshrc` / `.env.local` (never commit it).
 
 ---
 
-## GitHub Packages — Scope Compatibility Note
+## GitHub Packages — Package Scope
 
 > **Important:** GitHub Packages requires the npm scope to match the GitHub owner.
-> The packages use scope `@worko`, but the GitHub owner is `Said-Bzioui`.
-
-**Solution:** `@worko` does not match the owner `Said-Bzioui`. Each SDK uses pnpm's registry-specific `publishConfig.name` to publish under `@said-bzioui/*`, while the workspace manifest name and source imports remain unchanged. Consumers must install the published `@said-bzioui/*` names.
+Both SDKs use the `@said-bzioui` scope, matching the GitHub owner. The canonical workspace names and registry names are identical.
 
 ---
 
@@ -179,8 +177,8 @@ If a publish run is interrupted (network error, timeout, etc.):
 2. If a version was partially published and is in a broken state, unpublish it via the GitHub Packages UI (Package settings → Manage versions) and re-run.
 3. Git tags are created after publish. If the publish succeeded but the tag push failed, create tags manually:
    ```bash
-   git tag database-v0.1.0
-   git push origin database-v0.1.0
+   git tag database-v0.2.0
+   git push origin database-v0.2.0
    ```
 
 ---
@@ -190,7 +188,7 @@ If a publish run is interrupted (network error, timeout, etc.):
 ### `403 Forbidden` on publish
 
 - **Cause 1:** `GITHUB_TOKEN` lacks `packages: write`. Check workflow `permissions:`.
-- **Cause 2:** Published npm scope does not match the GitHub owner. Confirm `publishConfig.name` uses `@said-bzioui/*`.
+- **Cause 2:** Published npm scope does not match the GitHub owner. Confirm the package name uses `@said-bzioui/*` and `publishConfig.registry` points to GitHub Packages.
 - **Cause 3:** Package `private: true`. Both SDKs must have `"private": false`.
 
 ### `409 Conflict` / "version already exists"
@@ -207,7 +205,7 @@ Run `pnpm changeset status` to see what changesets are pending. Accidentally inc
 
 ### Tests fail in CI but pass locally
 
-Ensure all required secrets are added in GitHub repository settings. Missing secrets cause env vars to be empty strings which breaks the backend build and tests.
+The workflows use an isolated PostgreSQL service and test-only environment values; application secrets are not required for CI.
 
 ---
 

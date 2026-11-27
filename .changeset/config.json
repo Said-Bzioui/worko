@@ -9,8 +9,8 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "worko",
-    "@worko/worker",
-    "@worko/cli",
+    "@said-bzioui/worker",
+    "@said-bzioui/cli",
     "frontend"
   ]
 }

@@ -1,4 +1,4 @@
-import { createWorkoAuthClient } from '@worko/auth-sdk';
+import { createWorkoAuthClient } from '@said-bzioui/auth-sdk';
 
 export const authClient = createWorkoAuthClient({
   baseURL: import.meta.env.DEV

@@ -3,7 +3,7 @@ import {
   Injectable,
   OnModuleInit,
 } from '@nestjs/common';
-import { MembershipStatus, Prisma } from '@worko/database';
+import { MembershipStatus, Prisma } from '@said-bzioui/database';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import {
   PERMISSION_DEFINITIONS,

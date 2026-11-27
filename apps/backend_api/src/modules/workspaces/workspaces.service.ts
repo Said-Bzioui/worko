@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { MembershipStatus, Prisma } from '@worko/database';
+import { MembershipStatus, Prisma } from '@said-bzioui/database';
 import type { PaginationQueryDto } from '../../common/dto/pagination-query.dto.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { AuthzService } from '../authz/authz.service.js';

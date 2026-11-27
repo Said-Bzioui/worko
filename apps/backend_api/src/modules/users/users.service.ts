@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { randomBytes, randomUUID, scryptSync } from 'node:crypto';
-import type { User } from '@worko/database';
+import type { User } from '@said-bzioui/database';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import type { CreateUserDto } from './dto/create-user.dto.js';
 import type { UpdateUserDto } from './dto/update-user.dto.js';

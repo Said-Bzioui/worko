@@ -60,12 +60,12 @@ jobs:
 
       - name: Build SDKs
         run: |
-          pnpm --filter @worko/database build
-          pnpm --filter @worko/auth-sdk build
+          pnpm --filter @said-bzioui/database build
+          pnpm --filter @said-bzioui/auth-sdk build
 
       - name: Typecheck
         run: |
-          pnpm --filter @worko/worker typecheck
+          pnpm --filter @said-bzioui/worker typecheck
           pnpm --filter frontend typecheck
 
       - name: Lint
@@ -76,15 +76,15 @@ jobs:
       - name: Build apps
         run: |
           pnpm --filter worko build
-          pnpm --filter @worko/worker build
+          pnpm --filter @said-bzioui/worker build
           pnpm --filter frontend build
 
       - name: Prepare test database
-        run: pnpm --filter @worko/database prisma:deploy
+        run: pnpm --filter @said-bzioui/database prisma:deploy
 
       - name: Run tests
         run: |
-          pnpm --filter @worko/database test
+          pnpm --filter @said-bzioui/database test
           pnpm --filter worko test
 
       - name: Validate package manifests
@@ -101,7 +101,8 @@ jobs:
               if (!pkg.version) throw new Error(p + ': missing version');
               if (pkg.private !== false) throw new Error(p + ': must be publishable');
               if (pkg.publishConfig?.registry !== 'https://npm.pkg.github.com') throw new Error(p + ': wrong registry');
-              if (pkg.publishConfig?.name !== '@said-bzioui/' + pkg.name.split('/')[1]) throw new Error(p + ': publish name must match GitHub owner');
+              if (!pkg.name.startsWith('@said-bzioui/')) throw new Error(p + ': package scope must match GitHub owner');
+              if (pkg.publishConfig?.name && pkg.publishConfig.name !== pkg.name) throw new Error(p + ': canonical and published names must match');
               if (!pkg.exports || !pkg.files?.includes('dist')) throw new Error(p + ': exports or dist whitelist missing');
               console.log('✓', pkg.name, pkg.version);
             }

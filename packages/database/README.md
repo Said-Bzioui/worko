@@ -1,4 +1,4 @@
-# @worko/database
+# @said-bzioui/database
 
 > WORKO Database SDK — Prisma client factory, PostgreSQL pool management, and type exports.
 
@@ -8,22 +8,22 @@ This package is the **single source of truth** for the WORKO database layer. It 
 
 ## Installation
 
-> This package is published to [GitHub Packages](https://npm.pkg.github.com) under the `@worko` scope.
+> This package is published to [GitHub Packages](https://npm.pkg.github.com) under the `@said-bzioui` scope.
 
 Authenticate with GitHub Packages once:
 
 ```bash
 # .npmrc in your project
-@worko:registry=https://npm.pkg.github.com
+@said-bzioui:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
 Then install:
 
 ```bash
-pnpm add @worko/database
+pnpm add @said-bzioui/database
 # or
-npm install @worko/database
+npm install @said-bzioui/database
 ```
 
 ---
@@ -33,7 +33,7 @@ npm install @worko/database
 ### Create a database client
 
 ```ts
-import { createDatabaseClient } from '@worko/database';
+import { createDatabaseClient } from '@said-bzioui/database';
 
 const db = createDatabaseClient(process.env.DATABASE_URL!);
 
@@ -50,7 +50,7 @@ await db.disconnect();
 ### Create a bare PrismaClient
 
 ```ts
-import { createPrismaClient } from '@worko/database';
+import { createPrismaClient } from '@said-bzioui/database';
 
 const prisma = createPrismaClient(process.env.DATABASE_URL!);
 await prisma.$connect();
@@ -61,7 +61,7 @@ await prisma.$disconnect();
 ### Import generated Prisma types
 
 ```ts
-import type { User, Organization, Workspace, MembershipStatus } from '@worko/database';
+import type { User, Organization, Workspace, MembershipStatus } from '@said-bzioui/database';
 ```
 
 ---

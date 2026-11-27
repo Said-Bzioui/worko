@@ -11,7 +11,7 @@ import {
   type DatabaseClient,
   type Pool,
   type PrismaClient,
-} from '@worko/database';
+} from '@said-bzioui/database';
 
 @Injectable()
 export class PrismaService implements OnModuleInit, OnModuleDestroy {

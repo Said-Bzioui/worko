@@ -1,4 +1,4 @@
-import { RoleScope } from '@worko/database';
+import { RoleScope } from '@said-bzioui/database';
 
 export const PERMISSIONS = {
   ORGANIZATION_READ: 'organization:read',

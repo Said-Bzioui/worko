@@ -9,7 +9,7 @@ describe('UsersController', () => {
   const mockUser = {
     id: '550e8400-e29b-41d4-a716-446655440000',
     name: 'Said',
-    email: 'said@worko.dev',
+    email: 'said@example.test',
   };
 
   const mockUsersService = {
@@ -37,11 +37,11 @@ describe('UsersController', () => {
   it('should create a user', async () => {
     await expect(
       controller.createUser({
-        email: 'said@worko.dev',
+        email: 'said@example.test',
         password: 'Password123!',
         name: 'Said',
       }),
-    ).resolves.toMatchObject({ id: mockUser.id, email: 'said@worko.dev' });
+    ).resolves.toMatchObject({ id: mockUser.id, email: 'said@example.test' });
   });
 
   it('should return all users', async () => {

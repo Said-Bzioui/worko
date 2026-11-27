@@ -230,7 +230,7 @@ importers:
       '@prisma/client':
         specifier: ^7.10.1
         version: 7.10.1(prisma@7.10.1(@types/node@24.19.2)(@types/react-dom@19.3.0(@types/react@19.3.3))(@types/react@19.3.3)(magicast@0.5.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3))(typescript@6.0.3)
-      '@worko/database':
+      '@said-bzioui/database':
         specifier: workspace:*
         version: link:../../packages/database
       better-auth:
@@ -351,12 +351,12 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.3.0
         version: 5.3.0
+      '@said-bzioui/auth-sdk':
+        specifier: workspace:*
+        version: link:../../packages/auth-sdk
       '@tailwindcss/vite':
         specifier: ^4
         version: 4.3.5(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15))
-      '@worko/auth-sdk':
-        specifier: workspace:*
-        version: link:../../packages/auth-sdk
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -430,7 +430,7 @@ importers:
 
   apps/worker:
     dependencies:
-      '@worko/database':
+      '@said-bzioui/database':
         specifier: workspace:*
         version: link:../../packages/database
       bullmq:

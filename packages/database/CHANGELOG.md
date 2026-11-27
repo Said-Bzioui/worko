@@ -1,4 +1,4 @@
-# @worko/database
+# @said-bzioui/database
 
 ## 0.2.0
 
@@ -10,7 +10,7 @@
 
 ### Minor Changes
 
-- Initial public release of `@worko/database` SDK.
+- Initial public release of `@said-bzioui/database` SDK.
 - Pure database SDK: exports `createDatabaseClient(databaseUrl)` factory and all Prisma-generated types.
 - No environment variable reads at runtime — callers supply the connection URL explicitly.
 - Full Prisma schema with 56 tables, relations, migrations, and seed scripts.

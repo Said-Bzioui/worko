@@ -81,7 +81,7 @@ describe('WORKO Database Integrity & Constraints', () => {
       data: {
         id: randomUUID(),
         name: 'Audit Test User',
-        email: `audit-${runId}@worko.test`,
+        email: `audit-${runId}@example.test`,
       },
     });
     userId = user.id;

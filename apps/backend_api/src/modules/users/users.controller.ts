@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, Version } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import type { User } from '@worko/database';
+import type { User } from '@said-bzioui/database';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UsersService } from './users.service.js';
@@ -25,8 +25,8 @@ export class UsersController {
   findAll() {
     return this.usersService.findAllUsers();
     // return [
-    //   { id: '1', name: 'Said', email: 'said@worko.dev' },
-    //   { id: '2', name: 'Ahmed', email: 'ahmed@worko.dev' },
+    //   { id: '1', name: 'Said', email: 'said@example.test' },
+    //   { id: '2', name: 'Ahmed', email: 'ahmed@example.test' },
     // ];
   }
 

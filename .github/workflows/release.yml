@@ -70,18 +70,18 @@ jobs:
 
       - name: Build SDKs
         run: |
-          pnpm --filter @worko/database build
-          pnpm --filter @worko/auth-sdk build
+          pnpm --filter @said-bzioui/database build
+          pnpm --filter @said-bzioui/auth-sdk build
 
       - name: Build backend (compile check)
         run: pnpm --filter worko build
 
       - name: Prepare test database
-        run: pnpm --filter @worko/database prisma:deploy
+        run: pnpm --filter @said-bzioui/database prisma:deploy
 
       - name: Run tests
         run: |
-          pnpm --filter @worko/database test
+          pnpm --filter @said-bzioui/database test
           pnpm --filter worko test
 
       # changesets/action handles two states automatically:
@@ -117,7 +117,7 @@ jobs:
             const { execFileSync } = require("node:child_process");
             const packages = JSON.parse(process.env.PUBLISHED);
             for (const { name, version } of packages) {
-              const slug = name.replace(/^@worko\//, "");
+              const slug = name.replace(/^@said-bzioui\//, "");
               const tag = `${slug}-v${version}`;
               try { execFileSync("git", ["rev-parse", "-q", "--verify", `refs/tags/${tag}`]); }
               catch { execFileSync("git", ["tag", tag]); }

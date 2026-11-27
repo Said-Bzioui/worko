@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-27  
 **Database:** PostgreSQL (`db.prisma.io:5432`)  
-**ORM:** Prisma 7.10.1 (`@worko/database`, multi-file schema in `packages/database/prisma/schema/`)
+**ORM:** Prisma 7.10.1 (`@said-bzioui/database`, multi-file schema in `packages/database/prisma/schema/`)
 
 ---
 
@@ -75,7 +75,7 @@
 
 ## 5. Integration Test Results
 
-Executed via `pnpm --filter @worko/database run test` (`packages/database/tests/integrity.test.ts`) against live PostgreSQL (`db.prisma.io`):
+Executed via `pnpm --filter @said-bzioui/database run test` (`packages/database/tests/integrity.test.ts`) against live PostgreSQL (`db.prisma.io`):
 
 ```
 ▶ WORKO Database Integrity & Constraints

@@ -87,15 +87,15 @@ describe('DB-04 Identity, Organizations, Workspaces & Authorization (Integration
     prisma = app.get(PrismaService);
 
     userA = await prisma.user.create({
-      data: { id: randomUUID(), name: 'User A', email: `usera-${runId}@worko.test` },
+      data: { id: randomUUID(), name: 'User A', email: `usera-${runId}@example.test` },
       select: { id: true, email: true, name: true },
     });
     userB = await prisma.user.create({
-      data: { id: randomUUID(), name: 'User B', email: `userb-${runId}@worko.test` },
+      data: { id: randomUUID(), name: 'User B', email: `userb-${runId}@example.test` },
       select: { id: true, email: true, name: true },
     });
     userC = await prisma.user.create({
-      data: { id: randomUUID(), name: 'User C', email: `userc-${runId}@worko.test` },
+      data: { id: randomUUID(), name: 'User C', email: `userc-${runId}@example.test` },
       select: { id: true, email: true, name: true },
     });
 

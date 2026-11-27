@@ -14,7 +14,7 @@
 
     "worko": "tsx tools/cli/src/index.ts",
 
-    "worko:dev": "pnpm --parallel --filter worko --filter frontend --filter @worko/worker dev",
+    "worko:dev": "pnpm --parallel --filter worko --filter frontend --filter @said-bzioui/worker dev",
 
     "worko:backend:dev": "pnpm --filter worko start:dev",
     "worko:backend:start": "pnpm --filter worko start",
@@ -26,17 +26,17 @@
     "worko:frontend:build": "pnpm --filter frontend build",
     "worko:frontend:lint": "pnpm --filter frontend lint",
 
-    "worko:worker:dev": "pnpm --filter @worko/worker dev",
-    "worko:worker:start": "pnpm --filter @worko/worker start",
-    "worko:worker:build": "pnpm --filter @worko/worker build",
+    "worko:worker:dev": "pnpm --filter @said-bzioui/worker dev",
+    "worko:worker:start": "pnpm --filter @said-bzioui/worker start",
+    "worko:worker:build": "pnpm --filter @said-bzioui/worker build",
 
-    "worko:db:migrate": "pnpm --filter @worko/database prisma:migrate",
-    "worko:db:push": "pnpm --filter @worko/database prisma:push",
-    "worko:db:deploy": "pnpm --filter @worko/database prisma:deploy",
-    "worko:db:seed": "pnpm --filter @worko/database prisma:seed",
-    "worko:db:studio": "pnpm --filter @worko/database prisma:studio",
-    "worko:db:generate": "pnpm --filter @worko/database prisma:generate",
-    "worko:db:build": "pnpm --filter @worko/database build",
+    "worko:db:migrate": "pnpm --filter @said-bzioui/database prisma:migrate",
+    "worko:db:push": "pnpm --filter @said-bzioui/database prisma:push",
+    "worko:db:deploy": "pnpm --filter @said-bzioui/database prisma:deploy",
+    "worko:db:seed": "pnpm --filter @said-bzioui/database prisma:seed",
+    "worko:db:studio": "pnpm --filter @said-bzioui/database prisma:studio",
+    "worko:db:generate": "pnpm --filter @said-bzioui/database prisma:generate",
+    "worko:db:build": "pnpm --filter @said-bzioui/database build",
 
     "worko:docker:up": "docker compose -f infrastructure/docker/docker-compose.yml up -d",
     "worko:docker:down": "docker compose -f infrastructure/docker/docker-compose.yml down",
@@ -50,7 +50,7 @@
 
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release:build": "pnpm --filter @worko/database build && pnpm --filter @worko/auth-sdk build",
+    "release:build": "pnpm --filter @said-bzioui/database build && pnpm --filter @said-bzioui/auth-sdk build",
     "release:publish": "node scripts/publish-sdks.mjs",
     "release": "pnpm release:build && pnpm release:publish"
   },

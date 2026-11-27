@@ -2,10 +2,10 @@
 
 ## Architecture
 
-`@worko/database` is the single owner of the Prisma 7 schema, migrations, and generated client. `apps/backend_api` consumes the typed `PrismaClient`, `PrismaPg`, and `Pool` exports from `@worko/database` through a dedicated global NestJS module.
+`@said-bzioui/database` is the single owner of the Prisma 7 schema, migrations, and generated client. `apps/backend_api` consumes the typed `PrismaClient`, `PrismaPg`, and `Pool` exports from `@said-bzioui/database` through a dedicated global NestJS module.
 
 ```
-packages/database/src/index.ts  ──►  @worko/database (PrismaClient + PrismaPg + Pool)
+packages/database/src/index.ts  ──►  @said-bzioui/database (PrismaClient + PrismaPg + Pool)
                                            │
                                            ▼
 apps/backend_api/src/lib/prisma/
@@ -26,7 +26,7 @@ Implemented in [`apps/backend_api/src/lib/prisma/prisma.service.ts`](../../apps/
 
 ## Verification & Test Results
 
-- **`@worko/database` tests (`pnpm --filter @worko/database run test`):**
+- **`@said-bzioui/database` tests (`pnpm --filter @said-bzioui/database run test`):**
   - `integrity.test.ts`: **8/8 passed** (constraints, composite FKs, hierarchy cycles, custom field types, audit log append-only).
   - `seed-and-lifecycle.test.ts`: **4/4 passed** (seed idempotency, org/workspace/project/hierarchy retrieval, transaction rollback).
 - **`backend_api` tests (`pnpm --filter worko run test`):**

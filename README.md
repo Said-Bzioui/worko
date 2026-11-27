@@ -42,11 +42,11 @@ worko/
 ├── apps/
 │   ├── backend_api/        # NestJS REST API            (name: "worko")
 │   ├── frontend_ui/        # React 19 + Vite 8          (name: "frontend")
-│   └── worker/             # BullMQ job processor       (name: "@worko/worker")
+│   └── worker/             # BullMQ job processor       (name: "@said-bzioui/worker")
 │
 ├── packages/
-│   ├── database/           # Prisma 7 schema + client   (name: "@worko/database")
-│   └── auth-sdk/           # Better Auth client SDK     (name: "@worko/auth-sdk")
+│   ├── database/           # Prisma 7 schema + client   (name: "@said-bzioui/database")
+│   └── auth-sdk/           # Better Auth client SDK     (name: "@said-bzioui/auth-sdk")
 │
 ├── tools/
 │   └── cli/                # Root CLI (routes, health, db …)
@@ -134,7 +134,7 @@ pnpm worko:docker:up
 
 ```bash
 pnpm worko:db:build
-pnpm --filter @worko/auth-sdk build
+pnpm --filter @said-bzioui/auth-sdk build
 ```
 
 ### 5. Run database migration

@@ -1,4 +1,4 @@
-# @worko/auth-sdk
+# @said-bzioui/auth-sdk
 
 > WORKO Authentication SDK — Better Auth client wrapper for browser and React applications.
 
@@ -8,22 +8,22 @@ This package provides a typed, opinionated client for WORKO's authentication lay
 
 ## Installation
 
-> This package is published to [GitHub Packages](https://npm.pkg.github.com) under the `@worko` scope.
+> This package is published to [GitHub Packages](https://npm.pkg.github.com) under the `@said-bzioui` scope.
 
 Authenticate with GitHub Packages once:
 
 ```bash
 # .npmrc in your project
-@worko:registry=https://npm.pkg.github.com
+@said-bzioui:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
 Then install:
 
 ```bash
-pnpm add @worko/auth-sdk
+pnpm add @said-bzioui/auth-sdk
 # or
-npm install @worko/auth-sdk
+npm install @said-bzioui/auth-sdk
 ```
 
 React is an optional peer dependency (required for `useSession`):
@@ -39,7 +39,7 @@ pnpm add react
 ### Initialize the client
 
 ```ts
-import { createWorkoAuthClient } from '@worko/auth-sdk';
+import { createWorkoAuthClient } from '@said-bzioui/auth-sdk';
 
 export const auth = createWorkoAuthClient({
   baseURL: 'http://localhost:8080',  // Your WORKO backend URL
@@ -78,7 +78,7 @@ await auth.signInWithSocial({
 ### React session hook
 
 ```tsx
-import { createWorkoAuthClient } from '@worko/auth-sdk';
+import { createWorkoAuthClient } from '@said-bzioui/auth-sdk';
 
 const auth = createWorkoAuthClient({ baseURL: 'http://localhost:8080' });
 
@@ -132,7 +132,7 @@ import type {
   SignInSocialInput,
   SocialProvider,
   WorkoAuthClient,
-} from '@worko/auth-sdk';
+} from '@said-bzioui/auth-sdk';
 ```
 
 ---

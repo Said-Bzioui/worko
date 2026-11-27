@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { OrganizationStatus } from '@worko/database';
+import { OrganizationStatus } from '@said-bzioui/database';
 import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class UpdateOrganizationDto {

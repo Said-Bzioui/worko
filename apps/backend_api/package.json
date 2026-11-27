@@ -40,7 +40,7 @@
     "@nestjs/swagger": "^12.1.2",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
-    "@worko/database": "workspace:*",
+    "@said-bzioui/database": "workspace:*",
     "better-auth": "^1.7.28",
     "boxen": "^9.0.0",
     "bullmq": "^6.7.10",

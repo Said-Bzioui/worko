@@ -30,48 +30,48 @@ export async function seedDevelopmentDatabase(prisma: PrismaClient): Promise<voi
     const demoPassword = hashPassword('WorkoDemo123!');
 
     const admin = await tx.user.upsert({
-      where: { email: 'admin@worko.dev' },
+      where: { email: 'admin@example.test' },
       update: {},
       create: {
         id: randomUUID(),
         name: 'Worko Admin',
-        email: 'admin@worko.dev',
+        email: 'admin@example.test',
         password: demoPassword,
         emailVerified: true,
       },
     });
 
     const lead = await tx.user.upsert({
-      where: { email: 'lead@worko.dev' },
+      where: { email: 'lead@example.test' },
       update: {},
       create: {
         id: randomUUID(),
         name: 'Sarah Lead',
-        email: 'lead@worko.dev',
+        email: 'lead@example.test',
         password: demoPassword,
         emailVerified: true,
       },
     });
 
     const dev = await tx.user.upsert({
-      where: { email: 'dev@worko.dev' },
+      where: { email: 'dev@example.test' },
       update: {},
       create: {
         id: randomUUID(),
         name: 'Alex Developer',
-        email: 'dev@worko.dev',
+        email: 'dev@example.test',
         password: demoPassword,
         emailVerified: true,
       },
     });
 
     const pm = await tx.user.upsert({
-      where: { email: 'pm@worko.dev' },
+      where: { email: 'pm@example.test' },
       update: {},
       create: {
         id: randomUUID(),
         name: 'Maya Product',
-        email: 'pm@worko.dev',
+        email: 'pm@example.test',
         password: demoPassword,
         emailVerified: true,
       },

@@ -1,5 +1,5 @@
 {
-  "name": "@worko/database",
+  "name": "@said-bzioui/database",
   "version": "0.2.0",
   "private": false,
   "type": "module",
@@ -19,7 +19,6 @@
   },
   "license": "UNLICENSED",
   "publishConfig": {
-    "name": "@said-bzioui/database",
     "registry": "https://npm.pkg.github.com",
     "access": "restricted"
   },

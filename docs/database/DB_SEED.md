@@ -13,10 +13,10 @@ The development seed lives in [`packages/database/prisma/seed.ts`](../../package
 
 | Entity | Details |
 |---|---|
-| **Demo Users (4)** | `admin@worko.dev`, `lead@worko.dev`, `dev@worko.dev`, `pm@worko.dev` |
+| **Demo Users (4)** | `admin@example.test`, `lead@example.test`, `dev@example.test`, `pm@example.test` |
 | **RBAC Roles (2)** | `org_admin` (`ORGANIZATION`), `ws_manager` (`WORKSPACE`) |
 | **Organization (1)** | `Worko Demo Organization` (`slug: worko-demo`) |
-| **Organization Admin** | `admin@worko.dev` assigned `org_admin` via `OrganizationRoleAssignment` |
+| **Organization Admin** | `admin@example.test` assigned `org_admin` via `OrganizationRoleAssignment` |
 | **Workspace (1)** | `Worko Main Workspace` (`slug: main`, `timezone: UTC`) |
 | **Workspace Members (4)** | All 4 demo users with `ACTIVE` membership |
 | **Teams (2)** | `Engineering` (`ENG`) & `Product` (`PROD`) with team members |
@@ -36,8 +36,8 @@ Run from the monorepo root:
 pnpm worko:db:seed
 ```
 
-Or directly via `@worko/database`:
+Or directly via `@said-bzioui/database`:
 
 ```powershell
-pnpm --filter @worko/database run prisma:seed
+pnpm --filter @said-bzioui/database run prisma:seed
 ```
