@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./docs/banner.png" alt="WORKO banner" width="520" />
+  <img src="./apps/frontend_ui/public/worko-logo.svg" alt="WORKO" width="320" />
 </div>
 
 <p align="center">
