@@ -1,5 +1,11 @@
 # @said-bzioui/auth-sdk
 
+## 0.1.1
+
+### Patch Changes
+
+- ee18e43: Use the GitHub owner scope as the canonical package scope for both SDKs.
+
 ## 0.1.0
 
 ### Minor Changes
