@@ -87,24 +87,30 @@ jobs:
       # changesets/action handles two states automatically:
       #   1. Changesets present  → opens/updates "Version Packages" PR
       #   2. No changesets       → publishes to registry (after merging PR)
-      - name: Create release PR or publish
+      - name: Create Version Packages PR
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm release:publish
           version: pnpm version-packages
           commit: "chore: version packages"
           title: "chore: version packages"
           createGithubReleases: false
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Publish SDKs
+        id: publish
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: pnpm release:publish
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
           NODE_AUTH_TOKEN: ${{ github.token }}
 
       # ── Post-publish: create independent Git tags ──────────────────
       - name: Create version tags
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.publish.outcome == 'success'
         env:
-          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
+          PUBLISHED: ${{ steps.publish.outputs.publishedPackages }}
           GH_TOKEN: ${{ github.token }}
         run: |
           node -e '

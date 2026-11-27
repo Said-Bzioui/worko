@@ -16,7 +16,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { appendFileSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -35,7 +35,8 @@ if (!token) {
 }
 
 function run(cmd, opts = {}) {
-  return execSync(cmd, { stdio: 'pipe', encoding: 'utf8', ...opts }).trim();
+  const output = execSync(cmd, { stdio: 'pipe', encoding: 'utf8', ...opts });
+  return (output ?? '').toString().trim();
 }
 
 function isAlreadyPublished(name, version) {
@@ -51,6 +52,7 @@ function isAlreadyPublished(name, version) {
 }
 
 let anyFailed = false;
+const verifiedPackages = [];
 
 for (const pkgDir of SDKS) {
   const manifest = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'));
@@ -61,6 +63,7 @@ for (const pkgDir of SDKS) {
 
   if (isAlreadyPublished(publishedName, version)) {
     console.log(`  ⏭  Already published — skipping.`);
+    verifiedPackages.push({ name, version });
     continue;
   }
 
@@ -83,6 +86,7 @@ for (const pkgDir of SDKS) {
       anyFailed = true;
     } else {
       console.log(`  ✓  Verified on registry.`);
+      verifiedPackages.push({ name, version });
     }
   } catch (err) {
     console.error(`  ❌ Failed to publish ${publishedName}@${version}: ${err.message}`);
@@ -94,5 +98,11 @@ if (anyFailed) {
   console.error('\n❌ One or more packages failed to publish.');
   process.exit(1);
 } else {
+  if (process.env.GITHUB_OUTPUT) {
+    appendFileSync(
+      process.env.GITHUB_OUTPUT,
+      `publishedPackages=${JSON.stringify(verifiedPackages)}\n`,
+    );
+  }
   console.log('\n✅ All packages published (or already up-to-date).');
 }
