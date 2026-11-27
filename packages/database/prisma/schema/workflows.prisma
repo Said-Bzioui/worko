@@ -1,0 +1,108 @@
+model Workflow {
+  id          String  @id @default(uuid()) @db.Uuid
+  workspaceId String  @db.Uuid
+  name        String  @db.VarChar(120)
+  description String? @db.Text
+  isDefault   Boolean @default(false)
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  statuses       WorkflowStatus[]
+  transitions    WorkflowTransition[]
+  schemeMappings WorkflowSchemeMapping[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, workspaceId])
+  @@index([workspaceId])
+  @@map("workflows")
+}
+
+model WorkflowStatus {
+  id          String         @id @default(uuid()) @db.Uuid
+  workflowId  String         @db.Uuid
+  workspaceId String         @db.Uuid
+  name        String         @db.VarChar(80)
+  category    StatusCategory
+  color       String?        @db.VarChar(20)
+  position    Int            @default(0)
+
+  workflow  Workflow  @relation(fields: [workflowId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  issues          Issue[]
+  fromTransitions WorkflowTransition[] @relation("TransitionFrom")
+  toTransitions   WorkflowTransition[] @relation("TransitionTo")
+  boardColumns    BoardColumn[]
+
+  @@unique([workflowId, name])
+  @@unique([id, workflowId])
+  @@unique([id, workspaceId])
+  @@map("workflow_statuses")
+}
+
+model WorkflowTransition {
+  id           String @id @default(uuid()) @db.Uuid
+  workflowId   String @db.Uuid
+  fromStatusId String @db.Uuid
+  toStatusId   String @db.Uuid
+  name         String @db.VarChar(100)
+
+  workflow   Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  fromStatus WorkflowStatus @relation("TransitionFrom", fields: [fromStatusId, workflowId], references: [id, workflowId], onDelete: Cascade)
+  toStatus   WorkflowStatus @relation("TransitionTo", fields: [toStatusId, workflowId], references: [id, workflowId], onDelete: Cascade)
+
+  logs WorkflowTransitionLog[]
+
+  @@index([workflowId, fromStatusId])
+  @@map("workflow_transitions")
+}
+
+model WorkflowScheme {
+  id          String  @id @default(uuid()) @db.Uuid
+  workspaceId String  @db.Uuid
+  name        String  @db.VarChar(120)
+  description String? @db.Text
+
+  workspace Workspace               @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  mappings  WorkflowSchemeMapping[]
+  projects  Project[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, workspaceId])
+  @@index([workspaceId])
+  @@map("workflow_schemes")
+}
+
+model WorkflowSchemeMapping {
+  id         String    @id @default(uuid()) @db.Uuid
+  schemeId   String    @db.Uuid
+  workflowId String    @db.Uuid
+  issueType  IssueType
+
+  scheme   WorkflowScheme @relation(fields: [schemeId], references: [id], onDelete: Cascade)
+  workflow Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@unique([schemeId, issueType])
+  @@index([workflowId])
+  @@map("workflow_scheme_mappings")
+}
+
+model WorkflowTransitionLog {
+  id           String   @id @default(uuid()) @db.Uuid
+  issueId      String   @db.Uuid
+  transitionId String   @db.Uuid
+  actorId      String
+  executedAt   DateTime @default(now())
+
+  issue      Issue              @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  transition WorkflowTransition @relation(fields: [transitionId], references: [id], onDelete: Restrict)
+  actor      User               @relation(fields: [actorId], references: [id])
+
+  @@index([issueId, executedAt])
+  @@index([actorId])
+  @@map("workflow_transition_logs")
+}

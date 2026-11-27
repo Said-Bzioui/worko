@@ -3,7 +3,7 @@ import { createPrismaClient } from '@worko/database';
 import type { Worker } from 'bullmq';
 import { createWorkoWorker, WORKO_QUEUE_NAME } from './queues/worko.worker.js';
 
-const prisma = createPrismaClient();
+const prisma = createPrismaClient(process.env.DATABASE_URL!);
 let worker: Worker | undefined;
 
 async function bootstrap() {

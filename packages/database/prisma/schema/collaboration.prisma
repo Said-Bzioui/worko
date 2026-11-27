@@ -1,0 +1,88 @@
+model Comment {
+  id       String @id @default(uuid()) @db.Uuid
+  issueId  String @db.Uuid
+  authorId String
+  body     Json
+
+  issue    Issue            @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  author   User             @relation(fields: [authorId], references: [id])
+  mentions CommentMention[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([issueId, createdAt])
+  @@index([authorId])
+  @@map("comments")
+}
+
+model CommentMention {
+  id        String @id @default(uuid()) @db.Uuid
+  commentId String @db.Uuid
+  userId    String
+
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([commentId, userId])
+  @@index([userId])
+  @@map("comment_mentions")
+}
+
+model Attachment {
+  id         String @id @default(uuid()) @db.Uuid
+  issueId    String @db.Uuid
+  uploaderId String
+  fileName   String @db.VarChar(255)
+  mimeType   String @db.VarChar(120)
+  sizeBytes  Int
+  storageKey String @db.VarChar(500)
+
+  issue    Issue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  uploader User  @relation(fields: [uploaderId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([issueId])
+  @@index([uploaderId])
+  @@map("attachments")
+}
+
+model Activity {
+  id          String @id @default(uuid()) @db.Uuid
+  workspaceId String @db.Uuid
+  actorId     String
+  entityType  String @db.VarChar(60)
+  entityId    String @db.Uuid
+  action      String @db.VarChar(80)
+  metadata    Json?
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  actor     User      @relation(fields: [actorId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([workspaceId, createdAt])
+  @@index([entityType, entityId])
+  @@index([actorId])
+  @@map("activities")
+}
+
+model IssueHistory {
+  id       String @id @default(uuid()) @db.Uuid
+  issueId  String @db.Uuid
+  actorId  String
+  field    String @db.VarChar(80)
+  oldValue Json?
+  newValue Json?
+
+  issue Issue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  actor User  @relation(fields: [actorId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([issueId, createdAt])
+  @@index([actorId])
+  @@map("issue_histories")
+}

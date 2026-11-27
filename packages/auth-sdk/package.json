@@ -1,8 +1,22 @@
 {
   "name": "@worko/auth-sdk",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.1.0",
+  "private": false,
   "type": "module",
+  "description": "WORKO authentication SDK — Better Auth client wrapper for browser and React",
+  "keywords": ["worko", "auth", "better-auth", "sdk", "react"],
+  "homepage": "https://github.com/Said-Bzioui/worko#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Said-Bzioui/worko.git",
+    "directory": "packages/auth-sdk"
+  },
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "name": "@said-bzioui/auth-sdk",
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -12,10 +26,16 @@
       "default": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "better-auth": "^1.7.28"

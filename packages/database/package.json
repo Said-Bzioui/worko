@@ -1,8 +1,22 @@
 {
   "name": "@worko/database",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.1.0",
+  "private": false,
   "type": "module",
+  "description": "WORKO database SDK — Prisma client factory, schema types and pool management",
+  "keywords": ["worko", "database", "prisma", "postgresql", "sdk"],
+  "homepage": "https://github.com/Said-Bzioui/worko#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Said-Bzioui/worko.git",
+    "directory": "packages/database"
+  },
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "name": "@said-bzioui/database",
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -17,24 +31,31 @@
       "default": "./dist/generated/prisma/client.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "prisma generate && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --env-file=../../apps/backend_api/.env --test tests/integrity.test.ts tests/seed-and-lifecycle.test.ts",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:push": "prisma db push",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "tsx --env-file=../../apps/backend_api/.env prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
-    "dotenv": "^18.0.10",
     "pg": "^8.23.1"
   },
   "devDependencies": {
     "@types/pg": "^8.23.1",
+    "dotenv": "^18.0.10",
     "prisma": "7.10.1",
     "typescript": "^6.0.2"
   }

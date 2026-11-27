@@ -38,3 +38,7 @@ Desktop.ini
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
+
+# Local pnpm store used when workspace access to the user store is restricted
+.pnpm-store/
+

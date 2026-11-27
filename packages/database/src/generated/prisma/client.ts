@@ -31,8 +31,8 @@ export * from "./enums.js"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Roles
+ * const roles = await prisma.role.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,6 +41,136 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Role
+ * 
+ */
+export type Role = Prisma.RoleModel
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = Prisma.RolePermissionModel
+/**
+ * Model OrganizationRoleAssignment
+ * 
+ */
+export type OrganizationRoleAssignment = Prisma.OrganizationRoleAssignmentModel
+/**
+ * Model WorkspaceRoleAssignment
+ * 
+ */
+export type WorkspaceRoleAssignment = Prisma.WorkspaceRoleAssignmentModel
+/**
+ * Model ProjectRoleAssignment
+ * 
+ */
+export type ProjectRoleAssignment = Prisma.ProjectRoleAssignmentModel
+/**
+ * Model AutomationRule
+ * 
+ */
+export type AutomationRule = Prisma.AutomationRuleModel
+/**
+ * Model AutomationTrigger
+ * 
+ */
+export type AutomationTrigger = Prisma.AutomationTriggerModel
+/**
+ * Model AutomationCondition
+ * 
+ */
+export type AutomationCondition = Prisma.AutomationConditionModel
+/**
+ * Model AutomationAction
+ * 
+ */
+export type AutomationAction = Prisma.AutomationActionModel
+/**
+ * Model AutomationExecution
+ * 
+ */
+export type AutomationExecution = Prisma.AutomationExecutionModel
+/**
+ * Model Board
+ * 
+ */
+export type Board = Prisma.BoardModel
+/**
+ * Model BoardColumn
+ * 
+ */
+export type BoardColumn = Prisma.BoardColumnModel
+/**
+ * Model Sprint
+ * 
+ */
+export type Sprint = Prisma.SprintModel
+/**
+ * Model SprintIssue
+ * 
+ */
+export type SprintIssue = Prisma.SprintIssueModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model CommentMention
+ * 
+ */
+export type CommentMention = Prisma.CommentMentionModel
+/**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel
+/**
+ * Model Activity
+ * 
+ */
+export type Activity = Prisma.ActivityModel
+/**
+ * Model IssueHistory
+ * 
+ */
+export type IssueHistory = Prisma.IssueHistoryModel
+/**
+ * Model Label
+ * 
+ */
+export type Label = Prisma.LabelModel
+/**
+ * Model IssueLabel
+ * 
+ */
+export type IssueLabel = Prisma.IssueLabelModel
+/**
+ * Model CustomField
+ * 
+ */
+export type CustomField = Prisma.CustomFieldModel
+/**
+ * Model CustomFieldOption
+ * 
+ */
+export type CustomFieldOption = Prisma.CustomFieldOptionModel
+/**
+ * Model ProjectCustomField
+ * 
+ */
+export type ProjectCustomField = Prisma.ProjectCustomFieldModel
+/**
+ * Model IssueCustomFieldValue
+ * 
+ */
+export type IssueCustomFieldValue = Prisma.IssueCustomFieldValueModel
 /**
  * Model User
  * 
@@ -61,3 +191,128 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Issue
+ * 
+ */
+export type Issue = Prisma.IssueModel
+/**
+ * Model IssueLink
+ * 
+ */
+export type IssueLink = Prisma.IssueLinkModel
+/**
+ * Model IssueWatcher
+ * 
+ */
+export type IssueWatcher = Prisma.IssueWatcherModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model NotificationPreference
+ * 
+ */
+export type NotificationPreference = Prisma.NotificationPreferenceModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model Integration
+ * 
+ */
+export type Integration = Prisma.IntegrationModel
+/**
+ * Model Webhook
+ * 
+ */
+export type Webhook = Prisma.WebhookModel
+/**
+ * Model WebhookDelivery
+ * 
+ */
+export type WebhookDelivery = Prisma.WebhookDeliveryModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
+ * Model ProjectMember
+ * 
+ */
+export type ProjectMember = Prisma.ProjectMemberModel
+/**
+ * Model ProjectComponent
+ * 
+ */
+export type ProjectComponent = Prisma.ProjectComponentModel
+/**
+ * Model ProjectVersion
+ * 
+ */
+export type ProjectVersion = Prisma.ProjectVersionModel
+/**
+ * Model Organization
+ * 
+ */
+export type Organization = Prisma.OrganizationModel
+/**
+ * Model OrganizationMember
+ * 
+ */
+export type OrganizationMember = Prisma.OrganizationMemberModel
+/**
+ * Model Workspace
+ * 
+ */
+export type Workspace = Prisma.WorkspaceModel
+/**
+ * Model WorkspaceMember
+ * 
+ */
+export type WorkspaceMember = Prisma.WorkspaceMemberModel
+/**
+ * Model Team
+ * 
+ */
+export type Team = Prisma.TeamModel
+/**
+ * Model TeamMember
+ * 
+ */
+export type TeamMember = Prisma.TeamMemberModel
+/**
+ * Model Workflow
+ * 
+ */
+export type Workflow = Prisma.WorkflowModel
+/**
+ * Model WorkflowStatus
+ * 
+ */
+export type WorkflowStatus = Prisma.WorkflowStatusModel
+/**
+ * Model WorkflowTransition
+ * 
+ */
+export type WorkflowTransition = Prisma.WorkflowTransitionModel
+/**
+ * Model WorkflowScheme
+ * 
+ */
+export type WorkflowScheme = Prisma.WorkflowSchemeModel
+/**
+ * Model WorkflowSchemeMapping
+ * 
+ */
+export type WorkflowSchemeMapping = Prisma.WorkflowSchemeMappingModel
+/**
+ * Model WorkflowTransitionLog
+ * 
+ */
+export type WorkflowTransitionLog = Prisma.WorkflowTransitionLogModel

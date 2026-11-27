@@ -1,0 +1,75 @@
+model AutomationRule {
+  id          String  @id @default(uuid()) @db.Uuid
+  workspaceId String  @db.Uuid
+  name        String  @db.VarChar(150)
+  description String? @db.Text
+  isEnabled   Boolean @default(true)
+
+  workspace  Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  triggers   AutomationTrigger[]
+  conditions AutomationCondition[]
+  actions    AutomationAction[]
+  executions AutomationExecution[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([workspaceId, isEnabled])
+  @@map("automation_rules")
+}
+
+model AutomationTrigger {
+  id        String @id @default(uuid()) @db.Uuid
+  ruleId    String @db.Uuid
+  eventType String @db.VarChar(100)
+  config    Json?
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId])
+  @@map("automation_triggers")
+}
+
+model AutomationCondition {
+  id       String @id @default(uuid()) @db.Uuid
+  ruleId   String @db.Uuid
+  field    String @db.VarChar(100)
+  operator String @db.VarChar(40)
+  value    Json
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId])
+  @@map("automation_conditions")
+}
+
+model AutomationAction {
+  id         String @id @default(uuid()) @db.Uuid
+  ruleId     String @db.Uuid
+  actionType String @db.VarChar(100)
+  config     Json
+  position   Int    @default(0)
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId, position])
+  @@map("automation_actions")
+}
+
+model AutomationExecution {
+  id             String                    @id @default(uuid()) @db.Uuid
+  ruleId         String                    @db.Uuid
+  status         AutomationExecutionStatus @default(PENDING)
+  idempotencyKey String                    @unique @db.VarChar(150)
+  retryCount     Int                       @default(0)
+  errorDetails   String?                   @db.Text
+  startedAt      DateTime?
+  completedAt    DateTime?
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([ruleId, status])
+  @@map("automation_executions")
+}

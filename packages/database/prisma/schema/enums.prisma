@@ -1,0 +1,101 @@
+enum OrganizationStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum MembershipStatus {
+  INVITED
+  ACTIVE
+  SUSPENDED
+  LEFT
+}
+
+enum RoleScope {
+  ORGANIZATION
+  WORKSPACE
+  PROJECT
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  ARCHIVED
+}
+
+enum IssueType {
+  INITIATIVE
+  EPIC
+  STORY
+  TASK
+  BUG
+  SUBTASK
+  IMPROVEMENT
+  FEATURE
+  REQUEST
+}
+
+enum IssuePriority {
+  LOWEST
+  LOW
+  MEDIUM
+  HIGH
+  HIGHEST
+  CRITICAL
+}
+
+enum StatusCategory {
+  TO_DO
+  IN_PROGRESS
+  DONE
+}
+
+enum BoardType {
+  KANBAN
+  SCRUM
+  BACKLOG
+  PERSONAL
+  CUSTOM
+}
+
+enum SprintStatus {
+  FUTURE
+  ACTIVE
+  COMPLETED
+}
+
+enum IssueLinkType {
+  BLOCKS
+  IS_BLOCKED_BY
+  RELATES_TO
+  DUPLICATES
+  IS_DUPLICATED_BY
+  DEPENDS_ON
+}
+
+enum CustomFieldType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  DATE
+  SELECT
+  MULTI_SELECT
+  URL
+  USER
+  JSON
+}
+
+enum AutomationExecutionStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+enum WebhookDeliveryStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}

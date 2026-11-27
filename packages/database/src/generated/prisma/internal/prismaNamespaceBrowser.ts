@@ -51,10 +51,61 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Role: 'Role',
+  Permission: 'Permission',
+  RolePermission: 'RolePermission',
+  OrganizationRoleAssignment: 'OrganizationRoleAssignment',
+  WorkspaceRoleAssignment: 'WorkspaceRoleAssignment',
+  ProjectRoleAssignment: 'ProjectRoleAssignment',
+  AutomationRule: 'AutomationRule',
+  AutomationTrigger: 'AutomationTrigger',
+  AutomationCondition: 'AutomationCondition',
+  AutomationAction: 'AutomationAction',
+  AutomationExecution: 'AutomationExecution',
+  Board: 'Board',
+  BoardColumn: 'BoardColumn',
+  Sprint: 'Sprint',
+  SprintIssue: 'SprintIssue',
+  Comment: 'Comment',
+  CommentMention: 'CommentMention',
+  Attachment: 'Attachment',
+  Activity: 'Activity',
+  IssueHistory: 'IssueHistory',
+  Label: 'Label',
+  IssueLabel: 'IssueLabel',
+  CustomField: 'CustomField',
+  CustomFieldOption: 'CustomFieldOption',
+  ProjectCustomField: 'ProjectCustomField',
+  IssueCustomFieldValue: 'IssueCustomFieldValue',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Issue: 'Issue',
+  IssueLink: 'IssueLink',
+  IssueWatcher: 'IssueWatcher',
+  Notification: 'Notification',
+  NotificationPreference: 'NotificationPreference',
+  AuditLog: 'AuditLog',
+  Integration: 'Integration',
+  Webhook: 'Webhook',
+  WebhookDelivery: 'WebhookDelivery',
+  Project: 'Project',
+  ProjectMember: 'ProjectMember',
+  ProjectComponent: 'ProjectComponent',
+  ProjectVersion: 'ProjectVersion',
+  Organization: 'Organization',
+  OrganizationMember: 'OrganizationMember',
+  Workspace: 'Workspace',
+  WorkspaceMember: 'WorkspaceMember',
+  Team: 'Team',
+  TeamMember: 'TeamMember',
+  Workflow: 'Workflow',
+  WorkflowStatus: 'WorkflowStatus',
+  WorkflowTransition: 'WorkflowTransition',
+  WorkflowScheme: 'WorkflowScheme',
+  WorkflowSchemeMapping: 'WorkflowSchemeMapping',
+  WorkflowTransitionLog: 'WorkflowTransitionLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -71,6 +122,316 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  key: 'key',
+  scope: 'scope',
+  description: 'description',
+  isSystem: 'isSystem',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+export const PermissionScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  resource: 'resource',
+  action: 'action',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+export const RolePermissionScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  permissionId: 'permissionId'
+} as const
+
+export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
+
+
+export const OrganizationRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  roleId: 'roleId',
+  createdAt: 'createdAt'
+} as const
+
+export type OrganizationRoleAssignmentScalarFieldEnum = (typeof OrganizationRoleAssignmentScalarFieldEnum)[keyof typeof OrganizationRoleAssignmentScalarFieldEnum]
+
+
+export const WorkspaceRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  roleId: 'roleId',
+  createdAt: 'createdAt'
+} as const
+
+export type WorkspaceRoleAssignmentScalarFieldEnum = (typeof WorkspaceRoleAssignmentScalarFieldEnum)[keyof typeof WorkspaceRoleAssignmentScalarFieldEnum]
+
+
+export const ProjectRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  roleId: 'roleId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectRoleAssignmentScalarFieldEnum = (typeof ProjectRoleAssignmentScalarFieldEnum)[keyof typeof ProjectRoleAssignmentScalarFieldEnum]
+
+
+export const AutomationRuleScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  description: 'description',
+  isEnabled: 'isEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AutomationRuleScalarFieldEnum = (typeof AutomationRuleScalarFieldEnum)[keyof typeof AutomationRuleScalarFieldEnum]
+
+
+export const AutomationTriggerScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  eventType: 'eventType',
+  config: 'config'
+} as const
+
+export type AutomationTriggerScalarFieldEnum = (typeof AutomationTriggerScalarFieldEnum)[keyof typeof AutomationTriggerScalarFieldEnum]
+
+
+export const AutomationConditionScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  field: 'field',
+  operator: 'operator',
+  value: 'value'
+} as const
+
+export type AutomationConditionScalarFieldEnum = (typeof AutomationConditionScalarFieldEnum)[keyof typeof AutomationConditionScalarFieldEnum]
+
+
+export const AutomationActionScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  actionType: 'actionType',
+  config: 'config',
+  position: 'position'
+} as const
+
+export type AutomationActionScalarFieldEnum = (typeof AutomationActionScalarFieldEnum)[keyof typeof AutomationActionScalarFieldEnum]
+
+
+export const AutomationExecutionScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  status: 'status',
+  idempotencyKey: 'idempotencyKey',
+  retryCount: 'retryCount',
+  errorDetails: 'errorDetails',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AutomationExecutionScalarFieldEnum = (typeof AutomationExecutionScalarFieldEnum)[keyof typeof AutomationExecutionScalarFieldEnum]
+
+
+export const BoardScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  type: 'type',
+  filterQuery: 'filterQuery',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
+
+
+export const BoardColumnScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  statusId: 'statusId',
+  name: 'name',
+  position: 'position',
+  wipLimit: 'wipLimit'
+} as const
+
+export type BoardColumnScalarFieldEnum = (typeof BoardColumnScalarFieldEnum)[keyof typeof BoardColumnScalarFieldEnum]
+
+
+export const SprintScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  goal: 'goal',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SprintScalarFieldEnum = (typeof SprintScalarFieldEnum)[keyof typeof SprintScalarFieldEnum]
+
+
+export const SprintIssueScalarFieldEnum = {
+  id: 'id',
+  sprintId: 'sprintId',
+  issueId: 'issueId',
+  addedAt: 'addedAt'
+} as const
+
+export type SprintIssueScalarFieldEnum = (typeof SprintIssueScalarFieldEnum)[keyof typeof SprintIssueScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  authorId: 'authorId',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const CommentMentionScalarFieldEnum = {
+  id: 'id',
+  commentId: 'commentId',
+  userId: 'userId'
+} as const
+
+export type CommentMentionScalarFieldEnum = (typeof CommentMentionScalarFieldEnum)[keyof typeof CommentMentionScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  uploaderId: 'uploaderId',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  storageKey: 'storageKey',
+  createdAt: 'createdAt'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
+
+
+export const ActivityScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  actorId: 'actorId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  action: 'action',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const IssueHistoryScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  actorId: 'actorId',
+  field: 'field',
+  oldValue: 'oldValue',
+  newValue: 'newValue',
+  createdAt: 'createdAt'
+} as const
+
+export type IssueHistoryScalarFieldEnum = (typeof IssueHistoryScalarFieldEnum)[keyof typeof IssueHistoryScalarFieldEnum]
+
+
+export const LabelScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  color: 'color',
+  createdAt: 'createdAt'
+} as const
+
+export type LabelScalarFieldEnum = (typeof LabelScalarFieldEnum)[keyof typeof LabelScalarFieldEnum]
+
+
+export const IssueLabelScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  labelId: 'labelId'
+} as const
+
+export type IssueLabelScalarFieldEnum = (typeof IssueLabelScalarFieldEnum)[keyof typeof IssueLabelScalarFieldEnum]
+
+
+export const CustomFieldScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  fieldKey: 'fieldKey',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomFieldScalarFieldEnum = (typeof CustomFieldScalarFieldEnum)[keyof typeof CustomFieldScalarFieldEnum]
+
+
+export const CustomFieldOptionScalarFieldEnum = {
+  id: 'id',
+  fieldId: 'fieldId',
+  value: 'value',
+  label: 'label',
+  position: 'position'
+} as const
+
+export type CustomFieldOptionScalarFieldEnum = (typeof CustomFieldOptionScalarFieldEnum)[keyof typeof CustomFieldOptionScalarFieldEnum]
+
+
+export const ProjectCustomFieldScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  fieldId: 'fieldId',
+  isRequired: 'isRequired'
+} as const
+
+export type ProjectCustomFieldScalarFieldEnum = (typeof ProjectCustomFieldScalarFieldEnum)[keyof typeof ProjectCustomFieldScalarFieldEnum]
+
+
+export const IssueCustomFieldValueScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  fieldId: 'fieldId',
+  textValue: 'textValue',
+  numberValue: 'numberValue',
+  booleanValue: 'booleanValue',
+  dateValue: 'dateValue',
+  jsonValue: 'jsonValue'
+} as const
+
+export type IssueCustomFieldValueScalarFieldEnum = (typeof IssueCustomFieldValueScalarFieldEnum)[keyof typeof IssueCustomFieldValueScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -132,12 +493,354 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const IssueScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  projectId: 'projectId',
+  parentId: 'parentId',
+  issueNumber: 'issueNumber',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  priority: 'priority',
+  resolution: 'resolution',
+  statusId: 'statusId',
+  reporterId: 'reporterId',
+  assigneeId: 'assigneeId',
+  storyPoints: 'storyPoints',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type IssueScalarFieldEnum = (typeof IssueScalarFieldEnum)[keyof typeof IssueScalarFieldEnum]
+
+
+export const IssueLinkScalarFieldEnum = {
+  id: 'id',
+  sourceIssueId: 'sourceIssueId',
+  targetIssueId: 'targetIssueId',
+  linkType: 'linkType',
+  createdAt: 'createdAt'
+} as const
+
+export type IssueLinkScalarFieldEnum = (typeof IssueLinkScalarFieldEnum)[keyof typeof IssueLinkScalarFieldEnum]
+
+
+export const IssueWatcherScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type IssueWatcherScalarFieldEnum = (typeof IssueWatcherScalarFieldEnum)[keyof typeof IssueWatcherScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  payload: 'payload',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  channel: 'channel',
+  eventType: 'eventType',
+  enabled: 'enabled'
+} as const
+
+export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  workspaceId: 'workspaceId',
+  actorId: 'actorId',
+  action: 'action',
+  resourceType: 'resourceType',
+  resourceId: 'resourceId',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const IntegrationScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  provider: 'provider',
+  name: 'name',
+  config: 'config',
+  isEnabled: 'isEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationScalarFieldEnum = (typeof IntegrationScalarFieldEnum)[keyof typeof IntegrationScalarFieldEnum]
+
+
+export const WebhookScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  url: 'url',
+  secret: 'secret',
+  events: 'events',
+  isEnabled: 'isEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebhookScalarFieldEnum = (typeof WebhookScalarFieldEnum)[keyof typeof WebhookScalarFieldEnum]
+
+
+export const WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  webhookId: 'webhookId',
+  eventType: 'eventType',
+  payload: 'payload',
+  status: 'status',
+  httpStatus: 'httpStatus',
+  attemptCount: 'attemptCount',
+  responseBody: 'responseBody',
+  createdAt: 'createdAt'
+} as const
+
+export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  teamId: 'teamId',
+  workflowSchemeId: 'workflowSchemeId',
+  name: 'name',
+  key: 'key',
+  description: 'description',
+  status: 'status',
+  nextIssueNumber: 'nextIssueNumber',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const ProjectMemberScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId'
+} as const
+
+export type ProjectMemberScalarFieldEnum = (typeof ProjectMemberScalarFieldEnum)[keyof typeof ProjectMemberScalarFieldEnum]
+
+
+export const ProjectComponentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectComponentScalarFieldEnum = (typeof ProjectComponentScalarFieldEnum)[keyof typeof ProjectComponentScalarFieldEnum]
+
+
+export const ProjectVersionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  description: 'description',
+  releaseDate: 'releaseDate',
+  isReleased: 'isReleased',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectVersionScalarFieldEnum = (typeof ProjectVersionScalarFieldEnum)[keyof typeof ProjectVersionScalarFieldEnum]
+
+
+export const OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
+
+
+export const OrganizationMemberScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  status: 'status',
+  joinedAt: 'joinedAt'
+} as const
+
+export type OrganizationMemberScalarFieldEnum = (typeof OrganizationMemberScalarFieldEnum)[keyof typeof OrganizationMemberScalarFieldEnum]
+
+
+export const WorkspaceScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  slug: 'slug',
+  timezone: 'timezone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkspaceScalarFieldEnum = (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum]
+
+
+export const WorkspaceMemberScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  status: 'status'
+} as const
+
+export type WorkspaceMemberScalarFieldEnum = (typeof WorkspaceMemberScalarFieldEnum)[keyof typeof WorkspaceMemberScalarFieldEnum]
+
+
+export const TeamScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  key: 'key',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
+
+
+export const TeamMemberScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  role: 'role'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const WorkflowScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  description: 'description',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkflowScalarFieldEnum = (typeof WorkflowScalarFieldEnum)[keyof typeof WorkflowScalarFieldEnum]
+
+
+export const WorkflowStatusScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  category: 'category',
+  color: 'color',
+  position: 'position'
+} as const
+
+export type WorkflowStatusScalarFieldEnum = (typeof WorkflowStatusScalarFieldEnum)[keyof typeof WorkflowStatusScalarFieldEnum]
+
+
+export const WorkflowTransitionScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  fromStatusId: 'fromStatusId',
+  toStatusId: 'toStatusId',
+  name: 'name'
+} as const
+
+export type WorkflowTransitionScalarFieldEnum = (typeof WorkflowTransitionScalarFieldEnum)[keyof typeof WorkflowTransitionScalarFieldEnum]
+
+
+export const WorkflowSchemeScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkflowSchemeScalarFieldEnum = (typeof WorkflowSchemeScalarFieldEnum)[keyof typeof WorkflowSchemeScalarFieldEnum]
+
+
+export const WorkflowSchemeMappingScalarFieldEnum = {
+  id: 'id',
+  schemeId: 'schemeId',
+  workflowId: 'workflowId',
+  issueType: 'issueType'
+} as const
+
+export type WorkflowSchemeMappingScalarFieldEnum = (typeof WorkflowSchemeMappingScalarFieldEnum)[keyof typeof WorkflowSchemeMappingScalarFieldEnum]
+
+
+export const WorkflowTransitionLogScalarFieldEnum = {
+  id: 'id',
+  issueId: 'issueId',
+  transitionId: 'transitionId',
+  actorId: 'actorId',
+  executedAt: 'executedAt'
+} as const
+
+export type WorkflowTransitionLogScalarFieldEnum = (typeof WorkflowTransitionLogScalarFieldEnum)[keyof typeof WorkflowTransitionLogScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -154,4 +857,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

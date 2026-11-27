@@ -1,0 +1,86 @@
+model Issue {
+  id          String  @id @default(uuid()) @db.Uuid
+  workspaceId String  @db.Uuid
+  projectId   String  @db.Uuid
+  parentId    String? @db.Uuid
+
+  issueNumber Int
+  title       String        @db.VarChar(255)
+  description Json?
+  type        IssueType
+  priority    IssuePriority @default(MEDIUM)
+  resolution  String?       @db.VarChar(100)
+
+  statusId   String  @db.Uuid
+  reporterId String
+  assigneeId String?
+
+  storyPoints Decimal?  @db.Decimal(8, 2)
+  startDate   DateTime?
+  dueDate     DateTime?
+  position    Decimal   @default(0) @db.Decimal(20, 6)
+
+  workspace Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Restrict)
+  project   Project        @relation(fields: [projectId, workspaceId], references: [id, workspaceId], onDelete: Restrict)
+  parent    Issue?         @relation("IssueHierarchy", fields: [parentId], references: [id], onDelete: Restrict)
+  children  Issue[]        @relation("IssueHierarchy")
+  status    WorkflowStatus @relation(fields: [statusId, workspaceId], references: [id, workspaceId], onDelete: Restrict)
+  reporter  User           @relation("IssueReporter", fields: [reporterId], references: [id])
+  assignee  User?          @relation("IssueAssignee", fields: [assigneeId], references: [id])
+
+  sourceLinks    IssueLink[]             @relation("IssueLinkSource")
+  targetLinks    IssueLink[]             @relation("IssueLinkTarget")
+  watchers       IssueWatcher[]
+  labels         IssueLabel[]
+  comments       Comment[]
+  attachments    Attachment[]
+  history        IssueHistory[]
+  sprintIssues   SprintIssue[]
+  customValues   IssueCustomFieldValue[]
+  transitionLogs WorkflowTransitionLog[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([projectId, issueNumber])
+  @@index([projectId, statusId, position])
+  @@index([projectId, deletedAt])
+  @@index([workspaceId, statusId])
+  @@index([assigneeId, statusId])
+  @@index([parentId])
+  @@index([reporterId])
+  @@index([dueDate])
+  @@map("issues")
+}
+
+model IssueLink {
+  id            String        @id @default(uuid()) @db.Uuid
+  sourceIssueId String        @db.Uuid
+  targetIssueId String        @db.Uuid
+  linkType      IssueLinkType
+
+  sourceIssue Issue @relation("IssueLinkSource", fields: [sourceIssueId], references: [id], onDelete: Cascade)
+  targetIssue Issue @relation("IssueLinkTarget", fields: [targetIssueId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([sourceIssueId, targetIssueId, linkType])
+  @@index([targetIssueId])
+  @@map("issue_links")
+}
+
+model IssueWatcher {
+  id      String @id @default(uuid()) @db.Uuid
+  issueId String @db.Uuid
+  userId  String
+
+  issue Issue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([issueId, userId])
+  @@index([userId])
+  @@map("issue_watchers")
+}

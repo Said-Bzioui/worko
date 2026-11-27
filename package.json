@@ -14,41 +14,48 @@
 
     "worko": "tsx tools/cli/src/index.ts",
 
-    "worko:dev":              "pnpm --parallel --filter worko --filter frontend --filter @worko/worker dev",
+    "worko:dev": "pnpm --parallel --filter worko --filter frontend --filter @worko/worker dev",
 
-    "worko:backend:dev":      "pnpm --filter worko start:dev",
-    "worko:backend:start":    "pnpm --filter worko start",
-    "worko:backend:build":    "pnpm --filter worko build",
-    "worko:backend:test":     "pnpm --filter worko test",
-    "worko:backend:lint":     "pnpm --filter worko lint",
+    "worko:backend:dev": "pnpm --filter worko start:dev",
+    "worko:backend:start": "pnpm --filter worko start",
+    "worko:backend:build": "pnpm --filter worko build",
+    "worko:backend:test": "pnpm --filter worko test",
+    "worko:backend:lint": "pnpm --filter worko lint",
 
-    "worko:frontend:dev":     "pnpm --filter frontend dev",
-    "worko:frontend:build":   "pnpm --filter frontend build",
-    "worko:frontend:lint":    "pnpm --filter frontend lint",
+    "worko:frontend:dev": "pnpm --filter frontend dev",
+    "worko:frontend:build": "pnpm --filter frontend build",
+    "worko:frontend:lint": "pnpm --filter frontend lint",
 
-    "worko:worker:dev":       "pnpm --filter @worko/worker dev",
-    "worko:worker:start":     "pnpm --filter @worko/worker start",
-    "worko:worker:build":     "pnpm --filter @worko/worker build",
+    "worko:worker:dev": "pnpm --filter @worko/worker dev",
+    "worko:worker:start": "pnpm --filter @worko/worker start",
+    "worko:worker:build": "pnpm --filter @worko/worker build",
 
-    "worko:db:migrate":       "pnpm --filter @worko/database prisma:migrate",
-    "worko:db:push":          "pnpm --filter @worko/database prisma:push",
-    "worko:db:deploy":        "pnpm --filter @worko/database prisma:deploy",
-    "worko:db:seed":          "pnpm --filter @worko/database prisma:seed",
-    "worko:db:studio":        "pnpm --filter @worko/database prisma:studio",
-    "worko:db:generate":      "pnpm --filter @worko/database prisma:generate",
-    "worko:db:build":         "pnpm --filter @worko/database build",
+    "worko:db:migrate": "pnpm --filter @worko/database prisma:migrate",
+    "worko:db:push": "pnpm --filter @worko/database prisma:push",
+    "worko:db:deploy": "pnpm --filter @worko/database prisma:deploy",
+    "worko:db:seed": "pnpm --filter @worko/database prisma:seed",
+    "worko:db:studio": "pnpm --filter @worko/database prisma:studio",
+    "worko:db:generate": "pnpm --filter @worko/database prisma:generate",
+    "worko:db:build": "pnpm --filter @worko/database build",
 
-    "worko:docker:up":        "docker compose -f infrastructure/docker/docker-compose.yml up -d",
-    "worko:docker:down":      "docker compose -f infrastructure/docker/docker-compose.yml down",
-    "worko:docker:logs":      "docker compose -f infrastructure/docker/docker-compose.yml logs -f",
+    "worko:docker:up": "docker compose -f infrastructure/docker/docker-compose.yml up -d",
+    "worko:docker:down": "docker compose -f infrastructure/docker/docker-compose.yml down",
+    "worko:docker:logs": "docker compose -f infrastructure/docker/docker-compose.yml logs -f",
 
-    "worko:routes":           "tsx tools/cli/src/index.ts routes",
-    "worko:health":           "tsx tools/cli/src/index.ts health",
+    "worko:routes": "tsx tools/cli/src/index.ts routes",
+    "worko:health": "tsx tools/cli/src/index.ts health",
 
-    "docker:up":   "docker compose -f infrastructure/docker/docker-compose.yml up -d",
-    "docker:down": "docker compose -f infrastructure/docker/docker-compose.yml down"
+    "docker:up": "docker compose -f infrastructure/docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infrastructure/docker/docker-compose.yml down",
+
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release:build": "pnpm --filter @worko/database build && pnpm --filter @worko/auth-sdk build",
+    "release:publish": "node scripts/publish-sdks.mjs",
+    "release": "pnpm release:build && pnpm release:publish"
   },
   "devDependencies": {
+    "@changesets/cli": "2.27.10",
     "tsx": "^4.23.15",
     "turbo": "^2.11.13"
   }

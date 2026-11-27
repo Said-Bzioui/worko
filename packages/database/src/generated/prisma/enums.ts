@@ -9,7 +9,142 @@
 * 🟢 You can import this file directly.
 */
 
+export const OrganizationStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type OrganizationStatus = (typeof OrganizationStatus)[keyof typeof OrganizationStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const MembershipStatus = {
+  INVITED: 'INVITED',
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  LEFT: 'LEFT'
+} as const
+
+export type MembershipStatus = (typeof MembershipStatus)[keyof typeof MembershipStatus]
+
+
+export const RoleScope = {
+  ORGANIZATION: 'ORGANIZATION',
+  WORKSPACE: 'WORKSPACE',
+  PROJECT: 'PROJECT'
+} as const
+
+export type RoleScope = (typeof RoleScope)[keyof typeof RoleScope]
+
+
+export const ProjectStatus = {
+  PLANNING: 'PLANNING',
+  ACTIVE: 'ACTIVE',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
+export const IssueType = {
+  INITIATIVE: 'INITIATIVE',
+  EPIC: 'EPIC',
+  STORY: 'STORY',
+  TASK: 'TASK',
+  BUG: 'BUG',
+  SUBTASK: 'SUBTASK',
+  IMPROVEMENT: 'IMPROVEMENT',
+  FEATURE: 'FEATURE',
+  REQUEST: 'REQUEST'
+} as const
+
+export type IssueType = (typeof IssueType)[keyof typeof IssueType]
+
+
+export const IssuePriority = {
+  LOWEST: 'LOWEST',
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  HIGHEST: 'HIGHEST',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type IssuePriority = (typeof IssuePriority)[keyof typeof IssuePriority]
+
+
+export const StatusCategory = {
+  TO_DO: 'TO_DO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+} as const
+
+export type StatusCategory = (typeof StatusCategory)[keyof typeof StatusCategory]
+
+
+export const BoardType = {
+  KANBAN: 'KANBAN',
+  SCRUM: 'SCRUM',
+  BACKLOG: 'BACKLOG',
+  PERSONAL: 'PERSONAL',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type BoardType = (typeof BoardType)[keyof typeof BoardType]
+
+
+export const SprintStatus = {
+  FUTURE: 'FUTURE',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type SprintStatus = (typeof SprintStatus)[keyof typeof SprintStatus]
+
+
+export const IssueLinkType = {
+  BLOCKS: 'BLOCKS',
+  IS_BLOCKED_BY: 'IS_BLOCKED_BY',
+  RELATES_TO: 'RELATES_TO',
+  DUPLICATES: 'DUPLICATES',
+  IS_DUPLICATED_BY: 'IS_DUPLICATED_BY',
+  DEPENDS_ON: 'DEPENDS_ON'
+} as const
+
+export type IssueLinkType = (typeof IssueLinkType)[keyof typeof IssueLinkType]
+
+
+export const CustomFieldType = {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  BOOLEAN: 'BOOLEAN',
+  DATE: 'DATE',
+  SELECT: 'SELECT',
+  MULTI_SELECT: 'MULTI_SELECT',
+  URL: 'URL',
+  USER: 'USER',
+  JSON: 'JSON'
+} as const
+
+export type CustomFieldType = (typeof CustomFieldType)[keyof typeof CustomFieldType]
+
+
+export const AutomationExecutionStatus = {
+  PENDING: 'PENDING',
+  RUNNING: 'RUNNING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+
+export type AutomationExecutionStatus = (typeof AutomationExecutionStatus)[keyof typeof AutomationExecutionStatus]
+
+
+export const WebhookDeliveryStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+
+export type WebhookDeliveryStatus = (typeof WebhookDeliveryStatus)[keyof typeof WebhookDeliveryStatus]

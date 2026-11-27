@@ -73,9 +73,11 @@ export class WorkoLoggerService implements LoggerService {
 
     if (trace) {
       // Always log stack trace — redact nothing, but keep it dim in dev
-      this.isDev
-        ? console.error(chalk.dim(trace))
-        : console.error(JSON.stringify({ ts: new Date().toISOString(), level: 'ERROR', trace }));
+      if (this.isDev) {
+        console.error(chalk.dim(trace));
+      } else {
+        console.error(JSON.stringify({ ts: new Date().toISOString(), level: 'ERROR', trace }));
+      }
     }
   }
 

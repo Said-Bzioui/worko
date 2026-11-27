@@ -1,0 +1,113 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────
+  # Job 1 — When changesets exist: open/update Version Packages PR
+  # Job 2 — When no changesets exist (after merging release PR): publish
+  # ─────────────────────────────────────────────────────────────────
+  release:
+    name: Version or Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.23.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: "@said-bzioui"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build SDKs
+        run: |
+          pnpm --filter @worko/database build
+          pnpm --filter @worko/auth-sdk build
+
+      - name: Build backend (compile check)
+        run: pnpm --filter worko build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+          BETTER_AUTH_API_KEY: ${{ secrets.BETTER_AUTH_API_KEY }}
+          ARCJET_KEY: ${{ secrets.ARCJET_KEY }}
+          ARCJET_ENV: test
+          OBSERVE_APP_KEY: ${{ secrets.OBSERVE_APP_KEY }}
+          OBSERVE_APP_SECRET: ${{ secrets.OBSERVE_APP_SECRET }}
+
+      - name: Run tests
+        run: pnpm --filter worko test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+          BETTER_AUTH_API_KEY: ${{ secrets.BETTER_AUTH_API_KEY }}
+          ARCJET_KEY: ${{ secrets.ARCJET_KEY }}
+          ARCJET_ENV: test
+          OBSERVE_APP_KEY: ${{ secrets.OBSERVE_APP_KEY }}
+          OBSERVE_APP_SECRET: ${{ secrets.OBSERVE_APP_SECRET }}
+
+      # changesets/action handles two states automatically:
+      #   1. Changesets present  → opens/updates "Version Packages" PR
+      #   2. No changesets       → publishes to registry (after merging PR)
+      - name: Create release PR or publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release:publish
+          version: pnpm version-packages
+          commit: "chore: version packages"
+          title: "chore: version packages"
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ github.token }}
+
+      # ── Post-publish: create independent Git tags ──────────────────
+      - name: Create version tags
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node -e '
+            const { execFileSync } = require("node:child_process");
+            const packages = JSON.parse(process.env.PUBLISHED);
+            for (const { name, version } of packages) {
+              const slug = name.replace(/^@worko\//, "");
+              const tag = `${slug}-v${version}`;
+              try { execFileSync("git", ["rev-parse", "-q", "--verify", `refs/tags/${tag}`]); }
+              catch { execFileSync("git", ["tag", tag]); }
+              execFileSync("git", ["push", "origin", `refs/tags/${tag}`], { stdio: "inherit" });
+              try { execFileSync("gh", ["release", "view", tag], { stdio: "ignore" }); }
+              catch { execFileSync("gh", ["release", "create", tag, "--verify-tag", "--title", `${name}@${version}`, "--generate-notes"], { stdio: "inherit" }); }
+              console.log(`Verified release ${tag}`);
+            }
+          '

@@ -9,7 +9,10 @@ import { BetterAuthModule } from './lib/better-auth/better-auth.module.js';
 import { LoggerModule } from './lib/logger/logger.module.js';
 import { PrismaModule } from './lib/prisma/prisma.module.js';
 import { QueueModule } from './lib/queue/queue.module.js';
+import { AuthzModule } from './modules/authz/authz.module.js';
+import { OrganizationsModule } from './modules/organizations/organizations.module.js';
 import { UsersModule } from './modules/users/users.module.js';
+import { WorkspacesModule } from './modules/workspaces/workspaces.module.js';
 import { ApiKeyMiddleware } from './middleware/api-key.middleware.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -23,6 +26,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     LoggerModule,
     QueueModule,
     BetterAuthModule,
+    AuthzModule,
+    OrganizationsModule,
+    WorkspacesModule,
     UsersModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,

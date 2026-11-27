@@ -21,7 +21,29 @@ async function bootstrap() {
   const logger = app.get(WorkoLoggerService);
   app.useLogger(logger);
 
-  // ── 2. Better Auth (must be before body-parser) ───────────────────────────
+  // ── 2. CORS ──────────────────────────────────────────────────────────────
+  const env = process.env.NODE_ENV ?? 'development';
+  const configuredOrigins = (process.env.CORS_ORIGINS ?? '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
+  app.enableCors({
+    origin: (origin, callback) => {
+      // Allow non-browser clients (Postman, curl, server-to-server) with no Origin header
+      if (!origin) return callback(null, true);
+      if (configuredOrigins.includes(origin)) return callback(null, true);
+      if (env !== 'production' && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
+    },
+    credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+
+  // ── 3. Better Auth (must be before body-parser) ───────────────────────────
   const betterAuthService = app.get(BetterAuthService);
   const expressApp = app.getHttpAdapter().getInstance();
   expressApp.all('/api/v1/auth/{*any}', toNodeHandler(betterAuthService.auth));
@@ -48,8 +70,7 @@ async function bootstrap() {
     transform: true,
   }));
 
-  // ── 6. Swagger — dev only (never expose schema in production) ─────────────
-  const env = process.env.NODE_ENV ?? 'development';
+  // ── 7. Swagger — dev only (never expose schema in production) ─────────────
   if (env !== 'production') {
     const swaggerConfig = new DocumentBuilder()
       .setTitle('Worko API')
@@ -59,7 +80,7 @@ async function bootstrap() {
         { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
         'access-token',
       )
-      .addServer(`http://localhost:${process.env.PORT ?? 3000}`, 'Local')
+      .addServer(`http://localhost:${process.env.PORT ?? 8080}`, 'Local')
       .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
@@ -74,7 +95,7 @@ async function bootstrap() {
   }
 
   // ── 7. Listen ─────────────────────────────────────────────────────────────
-  const port = process.env.PORT ?? 3000;
+  const port = process.env.PORT ?? 8080;
   await app.listen(port);
 
   logger.log(`Application started on port ${port}`, 'Bootstrap');

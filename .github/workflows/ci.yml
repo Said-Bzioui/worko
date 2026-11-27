@@ -6,13 +6,20 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci:
+    name: Build, Lint & Test
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -28,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build shared packages
+      - name: Build SDKs
         run: |
           pnpm --filter @worko/database build
           pnpm --filter @worko/auth-sdk build
@@ -49,5 +56,45 @@ jobs:
           pnpm --filter @worko/worker build
           pnpm --filter frontend build
 
-      - name: Test
+      - name: Test (backend)
         run: pnpm --filter worko test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+          BETTER_AUTH_API_KEY: ${{ secrets.BETTER_AUTH_API_KEY }}
+          ARCJET_KEY: ${{ secrets.ARCJET_KEY }}
+          ARCJET_ENV: test
+          OBSERVE_APP_KEY: ${{ secrets.OBSERVE_APP_KEY }}
+          OBSERVE_APP_SECRET: ${{ secrets.OBSERVE_APP_SECRET }}
+
+      - name: Validate package manifests
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkgs = [
+              'packages/database/package.json',
+              'packages/auth-sdk/package.json',
+            ];
+            for (const p of pkgs) {
+              const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
+              if (!pkg.name) throw new Error(p + ': missing name');
+              if (!pkg.version) throw new Error(p + ': missing version');
+              if (pkg.private !== false) throw new Error(p + ': must be publishable');
+              if (pkg.publishConfig?.registry !== 'https://npm.pkg.github.com') throw new Error(p + ': wrong registry');
+              if (pkg.publishConfig?.name !== '@said-bzioui/' + pkg.name.split('/')[1]) throw new Error(p + ': publish name must match GitHub owner');
+              if (!pkg.exports || !pkg.files?.includes('dist')) throw new Error(p + ': exports or dist whitelist missing');
+              console.log('✓', pkg.name, pkg.version);
+            }
+          "
+
+      - name: Validate Changesets config
+        run: |
+          node -e "
+            const cfg = JSON.parse(require('fs').readFileSync('.changeset/config.json', 'utf8'));
+            if (cfg.baseBranch !== 'main') throw new Error('baseBranch must be main');
+            if (cfg.fixed?.length > 0) throw new Error('fixed packages must be empty (independent versioning)');
+            if (cfg.linked?.length > 0) throw new Error('linked packages must be empty (independent versioning)');
+            if (cfg.access !== 'restricted') throw new Error('GitHub Packages releases must use restricted access');
+            console.log('✓ Changesets config valid');
+          "
