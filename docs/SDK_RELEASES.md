@@ -113,8 +113,8 @@ The release workflow uses `GITHUB_TOKEN` automatically. No manual token needed f
 
 ```yaml
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ github.token }}
+  NODE_AUTH_TOKEN: ${{ github.token }}
 ```
 
 ### Installing packages locally (consumers)
@@ -160,19 +160,7 @@ Or add it to your `.bashrc` / `.zshrc` / `.env.local` (never commit it).
 
 ## Required GitHub Repository Settings
 
-### Secrets (Settings → Secrets → Actions)
-
-| Secret | Used By | Required For |
-|---|---|---|
-| `DATABASE_URL` | CI + Release | Tests, backend build |
-| `BETTER_AUTH_SECRET` | CI + Release | Tests, backend build |
-| `BETTER_AUTH_URL` | CI + Release | Tests, backend build |
-| `BETTER_AUTH_API_KEY` | CI + Release | Tests, backend build |
-| `ARCJET_KEY` | CI + Release | Tests, backend build |
-| `OBSERVE_APP_KEY` | CI + Release | Tests, backend build |
-| `OBSERVE_APP_SECRET` | CI + Release | Tests, backend build |
-
-> `GITHUB_TOKEN` is provided automatically by GitHub Actions — no manual setup needed.
+No application secrets are required for CI or release validation. Both workflows start an isolated PostgreSQL service and use test-only authentication values. `GITHUB_TOKEN` is provided automatically by GitHub Actions; no manual token secret is needed.
 
 ### Workflow Permissions (Settings → Actions → General)
 

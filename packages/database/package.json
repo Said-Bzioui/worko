@@ -39,7 +39,7 @@
   "scripts": {
     "build": "prisma generate && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "tsx --env-file=../../apps/backend_api/.env --test tests/integrity.test.ts tests/seed-and-lifecycle.test.ts",
+    "test": "tsx --env-file-if-exists=../../apps/backend_api/.env --test tests/integrity.test.ts tests/seed-and-lifecycle.test.ts",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

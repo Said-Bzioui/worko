@@ -21,6 +21,29 @@ jobs:
   release:
     name: Version or Publish
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: worko_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d worko_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/worko_test?sslmode=disable
+      BETTER_AUTH_SECRET: ci-test-secret-not-for-production
+      BETTER_AUTH_URL: http://localhost:3000
+      BETTER_AUTH_API_KEY: ci-test-api-key
+      ARCJET_KEY: ci-test-key
+      ARCJET_ENV: test
+      OBSERVE_APP_KEY: ci-test-key
+      OBSERVE_APP_SECRET: ci-test-secret
 
     steps:
       - name: Checkout
@@ -52,27 +75,12 @@ jobs:
 
       - name: Build backend (compile check)
         run: pnpm --filter worko build
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
-          BETTER_AUTH_API_KEY: ${{ secrets.BETTER_AUTH_API_KEY }}
-          ARCJET_KEY: ${{ secrets.ARCJET_KEY }}
-          ARCJET_ENV: test
-          OBSERVE_APP_KEY: ${{ secrets.OBSERVE_APP_KEY }}
-          OBSERVE_APP_SECRET: ${{ secrets.OBSERVE_APP_SECRET }}
+
+      - name: Prepare test database
+        run: pnpm --filter @worko/database prisma:deploy
 
       - name: Run tests
-        run: pnpm --filter worko test
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
-          BETTER_AUTH_API_KEY: ${{ secrets.BETTER_AUTH_API_KEY }}
-          ARCJET_KEY: ${{ secrets.ARCJET_KEY }}
-          ARCJET_ENV: test
-          OBSERVE_APP_KEY: ${{ secrets.OBSERVE_APP_KEY }}
-          OBSERVE_APP_SECRET: ${{ secrets.OBSERVE_APP_SECRET }}
+        run: pnpm test
 
       # changesets/action handles two states automatically:
       #   1. Changesets present  → opens/updates "Version Packages" PR
