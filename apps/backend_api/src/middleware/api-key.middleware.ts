@@ -5,13 +5,13 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class ApiKeyMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    const apiKey = req.headers['x-api-key'];
-    if (!apiKey) {
-      return res.status(401).json({ message: 'API Key is missing' });
-    }
-    if (apiKey !== '123456') {
-      throw new UnauthorizedException('API Key is invalid');
-    }
+    // const apiKey = req.headers['x-api-key'];
+    // if (!apiKey) {
+    //   return res.status(401).json({ message: 'API Key is missing' });
+    // }
+    // if (apiKey !== '123456') {
+    //   throw new UnauthorizedException('API Key is invalid'); 
+    // }
     next();
   }
 }

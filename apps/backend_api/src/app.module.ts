@@ -6,6 +6,7 @@ import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { BetterAuthModule } from './lib/better-auth/better-auth.module.js';
+import { LoggerModule } from './lib/logger/logger.module.js';
 import { PrismaModule } from './lib/prisma/prisma.module.js';
 import { QueueModule } from './lib/queue/queue.module.js';
 import { UsersModule } from './modules/users/users.module.js';
@@ -19,6 +20,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       isGlobal: true,
     }),
     PrismaModule,
+    LoggerModule,
     QueueModule,
     BetterAuthModule,
     UsersModule,

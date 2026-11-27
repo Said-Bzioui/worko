@@ -1,0 +1,27 @@
+{
+  "name": "@worko/cli",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "WORKO monorepo CLI — project-wide commands",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "boxen": "^9.0.0",
+    "chalk": "^6.0.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "figlet": "^1.13.0",
+    "gradient-string": "^3.0.0",
+    "log-symbols": "^7.0.1",
+    "ora": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.2"
+  }
+}
