@@ -1,10 +1,16 @@
 {
   "name": "@worko/database",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "type": "module",
   "description": "WORKO database SDK — Prisma client factory, schema types and pool management",
-  "keywords": ["worko", "database", "prisma", "postgresql", "sdk"],
+  "keywords": [
+    "worko",
+    "database",
+    "prisma",
+    "postgresql",
+    "sdk"
+  ],
   "homepage": "https://github.com/Said-Bzioui/worko#readme",
   "repository": {
     "type": "git",
