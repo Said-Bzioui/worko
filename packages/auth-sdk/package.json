@@ -1,10 +1,16 @@
 {
   "name": "@said-bzioui/auth-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "description": "WORKO authentication SDK — Better Auth client wrapper for browser and React",
-  "keywords": ["worko", "auth", "better-auth", "sdk", "react"],
+  "keywords": [
+    "worko",
+    "auth",
+    "better-auth",
+    "sdk",
+    "react"
+  ],
   "homepage": "https://github.com/Said-Bzioui/worko#readme",
   "repository": {
     "type": "git",

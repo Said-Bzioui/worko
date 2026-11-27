@@ -1,5 +1,11 @@
 # @said-bzioui/database
 
+## 0.2.1
+
+### Patch Changes
+
+- ee18e43: Use the GitHub owner scope as the canonical package scope for both SDKs.
+
 ## 0.2.0
 
 ### Minor Changes
