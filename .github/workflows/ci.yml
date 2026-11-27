@@ -83,7 +83,9 @@ jobs:
         run: pnpm --filter @worko/database prisma:deploy
 
       - name: Run tests
-        run: pnpm test
+        run: |
+          pnpm --filter @worko/database test
+          pnpm --filter worko test
 
       - name: Validate package manifests
         run: |

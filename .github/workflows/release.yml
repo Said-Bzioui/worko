@@ -80,7 +80,9 @@ jobs:
         run: pnpm --filter @worko/database prisma:deploy
 
       - name: Run tests
-        run: pnpm test
+        run: |
+          pnpm --filter @worko/database test
+          pnpm --filter worko test
 
       # changesets/action handles two states automatically:
       #   1. Changesets present  → opens/updates "Version Packages" PR
