@@ -1,5 +1,11 @@
 # @worko/database
 
+## 0.2.0
+
+### Minor Changes
+
+- 1c7eb4e: Exclude environment files from the published package.
+
 ## 0.1.0
 
 ### Minor Changes
